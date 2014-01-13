@@ -20,7 +20,7 @@
             </intent-filter>
             <meta-data
                 android:name="com.google.android.glass.VoiceTrigger"
-                android:resource="@xml/hello_world_voicecmd" />
+                android:resource="@xml/voicecmd" />
         </activity>
 
     </application>
