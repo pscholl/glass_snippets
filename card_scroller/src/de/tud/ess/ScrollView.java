@@ -1,11 +1,16 @@
 package de.tud.ess;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +76,7 @@ public class ScrollView extends Activity {
 
   private CardScrollView mCardScrollView;
   private MyScrollAdapter mAdapter;
+  protected Method mAnimate;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -82,5 +88,30 @@ public class ScrollView extends Activity {
     mAdapter = new MyScrollAdapter(); 
     mCardScrollView.setAdapter(mAdapter);
     mCardScrollView.activate();
+  }
+  
+  @Override
+  protected void onResume() {
+    super.onResume();
+    
+    /* This is an example on how to do an animation to another card.
+     * API is not published yet, so let's get it via reflection. */    
+    for(Method m : mCardScrollView.getClass().getDeclaredMethods()) {
+      if (m.getName().equals("animateToSelection"))
+        mAnimate = m;
+    }
+    
+    Handler h = new Handler();
+    h.postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        Class params[] = new Class[] { Integer.class, Integer.class };
+        try {
+          mAnimate.invoke(mCardScrollView, 1,1);
+        } catch (Exception e) {
+          Log.e("meh", e.toString());
+        }
+      }
+    }, 300);
   }
 }
