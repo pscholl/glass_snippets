@@ -67,7 +67,6 @@ public class ScrollView extends Activity {
       
       return v;
     }
-
   }
 
   private CardScrollView mCardScrollView;
