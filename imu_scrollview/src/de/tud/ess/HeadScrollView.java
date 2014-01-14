@@ -2,12 +2,11 @@ package de.tud.ess;
 
 import com.google.glass.util.PowerHelper;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
-import android.view.View;
 import android.widget.ScrollView;
 
 public class HeadScrollView implements SensorEventListener {
@@ -21,11 +20,11 @@ public class HeadScrollView implements SensorEventListener {
   private static final int SENSOR_RATE_uS = 200000;
   private static final float VELOCITY = -1000; // from rad to pixels
 
-  public HeadScrollView(ScrollView sv, SensorManager sm, PowerHelper ph) {
+  public HeadScrollView(Context c, ScrollView sv) {
     mScrollView = sv;
-    mSensorManager = sm;
-    mSensor = sm.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-    mPower  = ph;
+    mSensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
+    mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+    mPower  = new PowerHelper(c);
   }
   
   public void activate() {

@@ -30,10 +30,11 @@ public class ImuScrollView extends Activity {
     /* Typeface can't be set in layout specs prior to API16 */
     Typeface roboto = RobotoTypefaces.getTypeface(this, RobotoTypefaces.WEIGHT_THIN);
     mTextView.setTypeface(roboto);
-    mTextView.setText("Hello World!\nHello World again!\nAnd again hello World!\n\n\n\nAnd some more at the bottom!");
+    mTextView.setText("\n\nHello World!\nHello World again!\nAnd again hello World!\n\n\n\nAnd some more at the bottom!\n\n");
     mTextView.setGravity(Gravity.CENTER);
     
-    mHeadScroll = new HeadScrollView(mScrollView, (SensorManager) getSystemService(SENSOR_SERVICE), new PowerHelper(this));
+    mHeadScroll = new HeadScrollView(this, mScrollView);
+   
   }
   
   @Override
