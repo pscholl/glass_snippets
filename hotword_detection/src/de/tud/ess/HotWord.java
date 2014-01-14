@@ -25,9 +25,7 @@ public class HotWord extends Activity {
         new String[] { YES, NO  } );
 
     @Override
-    public void onVoiceServiceConnected() {
-      Log.e("Voice", "set voiceconfig");
-      
+    public void onVoiceServiceConnected() {      
       /* this is here to keep the device from going to sleep on voice activity */
       mPower = new PowerHelper(getApplicationContext());
       
