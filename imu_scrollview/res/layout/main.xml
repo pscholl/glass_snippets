@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<view xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/scrollView"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_gravity="top"
 	android:fillViewport="true"
-	android:scrollbars="none" >
+	android:scrollbars="none"
+	class="de.tud.ess.HeadScrollView" >
 
     <TextView
     	android:id="@+id/textView"
@@ -14,4 +15,4 @@
     	android:layout_gravity="top"
     	android:textSize="40sp" />
 
-</ScrollView>
+</view>

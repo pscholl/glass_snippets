@@ -7,11 +7,23 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.AttributeSet;
 import android.widget.ScrollView;
 
-public class HeadScrollView implements SensorEventListener {
+public class HeadScrollView extends ScrollView implements SensorEventListener {
 
-  private ScrollView mScrollView;
+  public HeadScrollView(Context context) {
+    super(context);
+  }
+  
+  public HeadScrollView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
+  
+  public HeadScrollView(Context context, AttributeSet attrs, int defStyle) {
+    super(context, attrs, defStyle);
+  }
+
   private PowerHelper mPower;
   private Sensor mSensor;
   private int mLastAccuracy;
@@ -19,17 +31,11 @@ public class HeadScrollView implements SensorEventListener {
   private float mStartX = 10;
   private static final int SENSOR_RATE_uS = 200000;
   private static final float VELOCITY = -1000; // from rad to pixels
-
-  public HeadScrollView(Context c, ScrollView sv) {
-    mScrollView = sv;
-    mSensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
-    mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-    mPower  = new PowerHelper(c);
-  }
   
   public void activate() {
-    if (mSensor == null)
-      return;
+    mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+    mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+    mPower  = new PowerHelper(getContext());
     
     mSensorManager.registerListener(this, mSensor, SENSOR_RATE_uS);
     mStartX = 10;
@@ -38,6 +44,10 @@ public class HeadScrollView implements SensorEventListener {
   public void deactivate() {
     mSensorManager.unregisterListener(this);
     mStartX = 10;
+    
+    mSensorManager = null;
+    mSensor = null;
+    mPower = null;
   }
   
   @Override
@@ -64,10 +74,10 @@ public class HeadScrollView implements SensorEventListener {
     if (mStartX  == 10)
       mStartX = x;
    
-    int prior = mScrollView.getScrollY();
-    mScrollView.scrollTo(0, (int) ((mStartX-x) * VELOCITY));
+    int prior = getScrollY();
+    scrollTo(0, (int) ((mStartX-x) * VELOCITY));
     
-    if (prior != mScrollView.getScrollY())
+    if (prior != getScrollY())
       mPower.stayAwake(3000);
   }
 
