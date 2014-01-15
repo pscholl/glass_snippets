@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import com.google.glass.input.HeadScroller;
 import com.google.glass.widget.RobotoTypefaces;
 
 public class ScrollView extends Activity {
@@ -54,7 +55,7 @@ public class ScrollView extends Activity {
     }
 
     @Override
-    public View getView(int num, View v, ViewGroup parent) {      
+    public View getView(int num, View v, ViewGroup parent) {   
       if (v == null) {
         TextView tv = new TextView(getApplicationContext());
         tv.setText(getMap().get(num));
@@ -105,7 +106,9 @@ public class ScrollView extends Activity {
       public void run() {
         Class params[] = new Class[] { Integer.class, Integer.class };
         try {
+          Log.e("scrollview", String.format("item: %d", mCardScrollView.getSelectedItemPosition()));
           mAnimate.invoke(mCardScrollView, 1,1);
+          Log.e("scrollview", String.format("item: %d", mCardScrollView.getSelectedItemPosition()));
         } catch (Exception e) {
           Log.e("meh", e.toString());
         }

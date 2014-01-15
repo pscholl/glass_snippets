@@ -1,17 +1,15 @@
 package de.tud.ess;
 
-import com.google.glass.util.PowerHelper;
-
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.opengl.Visibility;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
+
+import com.google.glass.util.PowerHelper;
 
 public class HeadScrollView extends ScrollView implements SensorEventListener {
 
@@ -27,7 +25,6 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
     super(context, attrs, defStyle);
   }
 
-  private PowerHelper mPower;
   private Sensor mSensor;
   private int mLastAccuracy;
   private SensorManager mSensorManager;
@@ -36,21 +33,22 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
   private static final float VELOCITY = -1000; // from rad to pixels
   
   public void activate() {
-    mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
-    mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-    mPower  = new PowerHelper(getContext());
+    if (mSensorManager == null) {
+      mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+      mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+    }
     
     mSensorManager.registerListener(this, mSensor, SENSOR_RATE_uS);
     mStartX = 10;
   }
   
   public void deactivate() {
-    mSensorManager.unregisterListener(this);
     mStartX = 10;
     
-    mSensorManager = null;
-    mSensor = null;
-    mPower = null;
+    if (mSensorManager == null)
+      return;
+    
+    mSensorManager.unregisterListener(this);
   }
   
   @Override
@@ -86,9 +84,6 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
    
     int prior = getScrollY();
     scrollTo(0, (int) ((mStartX-x) * VELOCITY));
-    
-    if (prior != getScrollY())
-      mPower.stayAwake(3000);
   }
 
 }
