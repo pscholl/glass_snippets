@@ -118,9 +118,10 @@ public class ScrollView extends Activity {
     h.postDelayed(new Runnable() {
       @Override
       public void run() {
+        /* params are next_position, and animation_type */
         Class params[] = new Class[] { Integer.class, Integer.class };
         try {
-          mAnimate.invoke(mCardScrollView, 1,0);
+          mAnimate.invoke(mCardScrollView, 1,2);
         } catch (Exception e) {
           Log.e("meh", e.toString());
         }
