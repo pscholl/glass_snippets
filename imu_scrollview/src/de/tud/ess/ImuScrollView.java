@@ -10,14 +10,12 @@ import com.google.glass.widget.RobotoTypefaces;
 
 public class ImuScrollView extends Activity {
   private TextView mTextView;
-  private HeadScrollView mHeadScrollView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     
     setContentView(R.layout.main);
-    mHeadScrollView = (HeadScrollView) findViewById(R.id.scrollView);
     mTextView       = (TextView) findViewById(R.id.textView);
     
     /* Typeface can't be set in layout specs prior to API16 */
