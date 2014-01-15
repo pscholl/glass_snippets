@@ -1,6 +1,7 @@
 package de.tud.ess;
 
 import java.lang.reflect.Method;
+import java.text.MessageFormat.Field;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -16,7 +17,6 @@ import android.widget.TextView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
-import com.google.glass.input.HeadScroller;
 import com.google.glass.widget.RobotoTypefaces;
 
 public class ScrollView extends Activity {
@@ -93,6 +93,20 @@ public class ScrollView extends Activity {
   protected void onResume() {
     super.onResume();
     
+    /* This prints the possible values for the second argument
+     * of animateToSelection. Currently these are:
+     *  ANIMATE_DELETION = 3
+     *  ANIMATE_GOTO = 2
+     * ANIMATE_INSERTION = 1 */ 
+    for (java.lang.reflect.Field f : mCardScrollView.getClass().getFields()) {
+      if (f.getName().startsWith("ANIMATE"))
+        try {
+          Log.e("fields", String.format("%s = %d",f.getName(),f.getInt(null)));
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+    }
+    
     /* This is an example on how to do an animation to another card.
      * API is not published yet, so let's get it via reflection. */    
     for(Method m : mCardScrollView.getClass().getDeclaredMethods()) {
@@ -106,9 +120,7 @@ public class ScrollView extends Activity {
       public void run() {
         Class params[] = new Class[] { Integer.class, Integer.class };
         try {
-          Log.e("scrollview", String.format("item: %d", mCardScrollView.getSelectedItemPosition()));
-          mAnimate.invoke(mCardScrollView, 1,1);
-          Log.e("scrollview", String.format("item: %d", mCardScrollView.getSelectedItemPosition()));
+          mAnimate.invoke(mCardScrollView, 1,0);
         } catch (Exception e) {
           Log.e("meh", e.toString());
         }
