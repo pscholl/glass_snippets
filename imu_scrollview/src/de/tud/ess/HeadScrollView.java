@@ -7,7 +7,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.opengl.Visibility;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
 import android.widget.ScrollView;
 
 public class HeadScrollView extends ScrollView implements SensorEventListener {
@@ -48,6 +51,13 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
     mSensorManager = null;
     mSensor = null;
     mPower = null;
+  }
+  
+  @Override
+  protected void onVisibilityChanged(View changedView, int visibility) {
+    super.onVisibilityChanged(changedView, visibility);
+    if (visibility == VISIBLE) activate();
+    else                     deactivate();
   }
   
   @Override

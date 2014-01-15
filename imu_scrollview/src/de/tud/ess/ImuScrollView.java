@@ -26,16 +26,4 @@ public class ImuScrollView extends Activity {
     mTextView.setText("\n\nHello World!\nHello World again!\nAnd again hello World!\n\n\n\nAnd some more at the bottom!\n\n");
     mTextView.setGravity(Gravity.CENTER);
   }
-  
-  @Override
-  protected void onResume() {
-    mHeadScrollView.activate();
-    super.onResume();
-  }
-  
-  @Override
-  protected void onPause() {
-    mHeadScrollView.deactivate();
-    super.onPause();
-  }
 }
