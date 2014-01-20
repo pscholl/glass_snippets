@@ -26,7 +26,7 @@ public class VerticalBars extends RelativeLayout {
       mHandler.postDelayed(this, BAR_FREQ_MS);
     }
     
-    public void animate_height(View v) {
+    public float animate_height(View v) {
       float scale    = mRand .nextFloat();
       Float oldscale = viewToScale.put(v, scale);
       oldscale = oldscale==null ? 1 : oldscale;
@@ -35,12 +35,15 @@ public class VerticalBars extends RelativeLayout {
           Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF, 1);
       a.setDuration(BAR_FREQ_MS-1);
       v.setAnimation(a);
+      
+      return scale;
     }
 
-    public void change_height(View v) {
+    public float change_height(View v) {
       LayoutParams p = (LayoutParams) v.getLayoutParams();
       p.height = mRand.nextInt(BAR_HEIGHT + 1);
       v.setLayoutParams(p);
+      return (BAR_HEIGHT+1)/(float) p.height;
     }
 
   }
