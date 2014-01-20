@@ -23,6 +23,7 @@ public class VerticalBars extends RelativeLayout {
       change_height(mBar1);
       animate_height(mBar2);
       animate_height(mBar3);
+      
       mHandler.postDelayed(this, BAR_FREQ_MS);
     }
     

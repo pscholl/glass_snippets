@@ -1,7 +1,5 @@
 package de.tud.ess;
 
-import com.google.glass.widget.RobotoTypefaces;
-
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.hardware.Camera;
@@ -13,6 +11,8 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.glass.widget.RobotoTypefaces;
 
 public class CameraTest extends Activity {
 
@@ -35,7 +35,7 @@ public class CameraTest extends Activity {
         RobotoTypefaces.WEIGHT_THIN);
     mTextView.setTypeface(roboto);
     mTextView.setText("Hello World!");
-    mTextView.setGravity(Gravity.CENTER);
+    mTextView.setGravity(Gravity.CENTER); 
 
     mSurface = (SurfaceView) findViewById(R.id.surfaceView);
     mSurfaceHolder = mSurface.getHolder();

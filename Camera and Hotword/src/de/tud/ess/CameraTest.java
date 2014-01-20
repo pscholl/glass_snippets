@@ -4,6 +4,7 @@ import com.google.glass.input.VoiceInputHelper;
 import com.google.glass.util.PowerHelper;
 import com.google.glass.voice.VoiceCommand;
 import com.google.glass.voice.VoiceConfig;
+import com.google.glass.voice.menu.VoiceMenu;
 import com.google.glass.widget.RobotoTypefaces;
 
 import android.app.Activity;
@@ -13,8 +14,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
+import android.view.ViewGroup;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
