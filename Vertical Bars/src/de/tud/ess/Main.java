@@ -23,6 +23,7 @@ public class Main extends Activity {
   @Override
   protected void onPause() {
     vBars.deactivate();
+    super.onPause();
   }
   
 }

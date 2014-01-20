@@ -64,7 +64,7 @@ public class VerticalBars extends RelativeLayout {
     p.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
     p.setMargins(0, 0, 5, 0);
     mBar1.setId(1);
-    mBar1.setBackgroundResource(android.R.color.white);
+    mBar1.setBackgroundResource(R.color.green);
     addView(mBar1, p);
     
     p = new LayoutParams(BAR_WIDTH, BAR_HEIGHT);
@@ -72,7 +72,7 @@ public class VerticalBars extends RelativeLayout {
     p.addRule(RelativeLayout.RIGHT_OF, 1);
     p.setMargins(0, 0, 5, 0);
     mBar2.setId(2);
-    mBar2.setBackgroundResource(android.R.color.white);
+    mBar2.setBackgroundResource(R.color.red);
     addView(mBar2, p);
     
     p = new LayoutParams(BAR_WIDTH, BAR_HEIGHT);
@@ -80,7 +80,7 @@ public class VerticalBars extends RelativeLayout {
     p.addRule(RelativeLayout.RIGHT_OF, 2);
     p.setMargins(0, 0, 5, 0);
     mBar3.setId(3);
-    mBar3.setBackgroundResource(android.R.color.white);
+    mBar3.setBackgroundResource(R.color.blue);
     addView(mBar3, p);
   }
   
