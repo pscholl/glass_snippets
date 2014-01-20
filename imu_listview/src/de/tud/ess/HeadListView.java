@@ -1,14 +1,15 @@
 package de.tud.ess;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.AttributeSet;
 import android.widget.ListView;
 
-public class HeadListView implements SensorEventListener {
+public class HeadListView extends ListView implements SensorEventListener {
 
-  private ListView mListView;
   private Sensor mSensor;
   private int mLastAccuracy;
   private SensorManager mSensorManager;
@@ -16,10 +17,25 @@ public class HeadListView implements SensorEventListener {
   private static final int SENSOR_RATE_uS = 200000;
   private static final float VELOCITY = -1000; // from rad to pixels
 
-  public HeadListView(ListView lv, SensorManager sm) {
-    mListView = lv;
-    mSensorManager = sm;
-    mSensor = sm.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+  
+  public HeadListView(Context context, AttributeSet attrs, int defStyle) {
+    super(context, attrs, defStyle);
+    init();
+  }
+
+  public HeadListView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init();
+  }
+
+  public HeadListView(Context context) {
+    super(context);
+    init();
+  }
+
+  public void init() {
+    mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+    mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
   }
   
   public void activate() {
@@ -65,10 +81,10 @@ public class HeadListView implements SensorEventListener {
     adjValue = Math.min(adjValue, MAX_RANGE);
     adjValue = Math.max(adjValue, 0);
     
-    int interval = (int) MAX_RANGE /  mListView.getCount();
+    int interval = (int) MAX_RANGE /  getCount();
     int position =  (int) adjValue / interval;
 
-    mListView.setSelection(position);
+    setSelection(position);
     
   }
 

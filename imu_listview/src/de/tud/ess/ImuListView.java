@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ImuScrollView extends Activity {
+public class ImuListView extends Activity {
 	private ListView mListView;
 	private HeadListView mHeadScroll;
 
@@ -42,7 +42,7 @@ public class ImuScrollView extends Activity {
 		StableArrayAdapter adapter = new StableArrayAdapter(this, list);
 		mListView.setAdapter(adapter);
 
-		mHeadScroll = new HeadListView(mListView, (SensorManager) getSystemService(SENSOR_SERVICE));
+		mHeadScroll = (HeadListView) findViewById(R.id.listView);
 	}
 
 	@Override

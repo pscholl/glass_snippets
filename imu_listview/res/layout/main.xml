@@ -11,13 +11,14 @@
 	   	android:text="Select"
 	   	android:textSize="30sp" />
 	
-	<ListView 
+	<view 
 		android:id="@+id/listView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_toRightOf="@id/textView"
 		android:layout_marginLeft="5dp"		
         android:divider="@null"
-        android:listSelector="@android:color/transparent" />
+        android:listSelector="@android:color/transparent"
+        class="de.tud.ess.HeadListView" />
 
 </RelativeLayout>
