@@ -6,7 +6,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ListView;
 
 public class HeadListView extends ListView implements SensorEventListener {
@@ -74,14 +73,18 @@ public class HeadListView extends ListView implements SensorEventListener {
           x = orientation[1],
           y = orientation[2];
     
-    if (mStartX  == INVALID_X || mStartX > x)
+    if (mStartX  == INVALID_X)
       mStartX = x;
         
     int position = (int) ((mStartX - x) * -1/VELOCITY);
+    setSelection(position);
     
-    if (position >= 0)
-      setSelection(position);
-    
+    if (position < 0)
+      mStartX = x;
+    else if (position > getCount()) {
+      float mEndX = (getCount() * VELOCITY) + mStartX;
+      mStartX += x - mEndX;
+    }
   }
 
 }
