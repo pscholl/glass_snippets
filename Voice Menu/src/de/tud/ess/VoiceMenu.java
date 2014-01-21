@@ -8,9 +8,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.glass.input.VoiceInputHelper;
@@ -40,16 +40,17 @@ public class VoiceMenu extends StubVoiceListener {
           RobotoTypefaces.WEIGHT_THIN);
       tv.setTypeface(roboto);
       tv.setText(mItems[position]);
-      tv.setGravity(Gravity.CENTER);
+      tv.setGravity(Gravity.LEFT);
       
       return tv;
     }
-
   }
 
   public interface VoiceMenuListener {
     void onItemSelected(String item);
   }
+
+  protected static final int MARGIN = 20;
 
   protected VoiceInputHelper mVoiceInputHelper;
   protected Activity mContext;
@@ -57,17 +58,26 @@ public class VoiceMenu extends StubVoiceListener {
   protected PowerHelper mPower;
   protected String[] mItems;
   protected HeadListView mScroll;
-  private VoiceMenuListener mListener;
-  private FrameLayout mRoot;
+  protected VoiceMenuListener mListener;
+  protected FrameLayout mRoot;
+  protected String mActivationWord;
+  protected RelativeLayout mLayout;
+  protected boolean mShowing = false;
   
-  public VoiceMenu(Activity c, String... items) {
+  public VoiceMenu(Activity c, String hotword, String... items) {
     mContext = c;
     mVoiceInputHelper = new VoiceInputHelper(
         mContext, this,
         VoiceInputHelper.newUserActivityObserver(mContext));
     
+    String[] hotwords = new String[items.length+1];
+    for (int i=1; i<items.length; i++)
+      hotwords[i] = items[i-1];
+    hotwords[0] = hotword;
+    
+    mActivationWord = hotword;
     mVoiceConfig = new VoiceConfig(
-        c.getApplicationInfo().name,items);
+        c.getApplicationInfo().name, hotwords);
     
     mItems = items;
     mPower = new PowerHelper(mContext);
@@ -81,6 +91,11 @@ public class VoiceMenu extends StubVoiceListener {
   
   public void setListener(VoiceMenuListener m) {
     mListener = m;
+    
+    if (mListener != null)
+      mVoiceInputHelper.addVoiceServiceListener();
+    else
+      mVoiceInputHelper.detachVoiceInputCallback();
   }
   
   @Override
@@ -92,6 +107,9 @@ public class VoiceMenu extends StubVoiceListener {
       shutdown();
       return mVoiceConfig;
     }
+    
+    if (literal.equals(mActivationWord))
+      show();
     
     for (String item : mItems) {
       if ( item.equals(literal) ) {
@@ -110,26 +128,56 @@ public class VoiceMenu extends StubVoiceListener {
     {
       mVoiceInputHelper.detachVoiceInputCallback();
       mScroll.deactivate();
-      mRoot.removeView(mScroll);
+      mRoot.removeView(mLayout);
       mScroll = null;
+      mLayout = null;
+      mShowing = false;
     }
   }
 
   public void show() {
-    mVoiceInputHelper.addVoiceServiceListener();
+    if (mShowing )
+      return;
+    
     mRoot = (FrameLayout) mContext.getWindow().getDecorView().findViewById(android.R.id.content);   
+    
+    mLayout = new RelativeLayout(mContext);
+    mLayout.setBackgroundColor(0xDD000000);
+    ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT, 
+        ViewGroup.LayoutParams.MATCH_PARENT);
+    mRoot.addView(mLayout, p);
+    
+    TextView tv = new TextView(mContext);
+    Typeface roboto = RobotoTypefaces.getTypeface(mContext,
+        RobotoTypefaces.WEIGHT_THIN);
+    tv.setTypeface(roboto);
+    tv.setText(mActivationWord + ", ");
+    tv.setGravity(Gravity.LEFT);
+    tv.setId(1);
+    
+    RelativeLayout.LayoutParams params;
+    params = new RelativeLayout.LayoutParams(
+        RelativeLayout.LayoutParams.WRAP_CONTENT,
+        RelativeLayout.LayoutParams.MATCH_PARENT);
+    params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+    params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+    params.setMargins(MARGIN, MARGIN, MARGIN, MARGIN);
+    mLayout.addView(tv, params);
     
     mScroll = new HeadListView(mContext);
     mScroll.setAdapter(new ThisFuckingAdapter(mContext, mItems));
-    mScroll.setBackgroundColor(0xDD000000);
     mScroll.setSelector(new StateListDrawable()); // disable selector view
     mScroll.setDivider(new StateListDrawable());
+    params = new RelativeLayout.LayoutParams(
+        RelativeLayout.LayoutParams.WRAP_CONTENT,
+        RelativeLayout.LayoutParams.MATCH_PARENT);
+    params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+    params.addRule(RelativeLayout.RIGHT_OF, 1);
+    params.setMargins(0, MARGIN, MARGIN, MARGIN);
+    mLayout.addView(mScroll, params);
     
-    LayoutParams p = new LayoutParams(
-        LayoutParams.MATCH_PARENT, 
-        LayoutParams.MATCH_PARENT);
-    mRoot.addView(mScroll,p);
-    
+    mShowing = true;
     mScroll.activate();
   }
 }

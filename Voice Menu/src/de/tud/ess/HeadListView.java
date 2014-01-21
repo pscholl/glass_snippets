@@ -10,12 +10,13 @@ import android.widget.ListView;
 
 public class HeadListView extends ListView implements SensorEventListener {
 
+  private static final float INVALID_X = 10;
   private Sensor mSensor;
   private int mLastAccuracy;
   private SensorManager mSensorManager;
-  private float mStartX = 10;
+  private float mStartX = INVALID_X;
   private static final int SENSOR_RATE_uS = 200000;
-  private static final float VELOCITY = -1000; // from rad to pixels
+  private static final float VELOCITY = (float) (Math.PI / 180 * 2); // scroll one item per 2°
 
   
   public HeadListView(Context context, AttributeSet attrs, int defStyle) {
@@ -42,13 +43,13 @@ public class HeadListView extends ListView implements SensorEventListener {
     if (mSensor == null)
       return;
     
+    mStartX = INVALID_X;
     mSensorManager.registerListener(this, mSensor, SENSOR_RATE_uS);
-    mStartX = 10;
   }
   
   public void deactivate() {
     mSensorManager.unregisterListener(this);
-    mStartX = 10;
+    mStartX = INVALID_X;
   }
   
   @Override
@@ -72,20 +73,18 @@ public class HeadListView extends ListView implements SensorEventListener {
           x = orientation[1],
           y = orientation[2];
     
-    if (mStartX  == 10)
+    if (mStartX  == INVALID_X)
       mStartX = x;
-
-    int MAX_RANGE = 800;
-    int value = (int) ((mStartX-x) * VELOCITY);
-    int adjValue = (int) (value + (MAX_RANGE / 2));
-    adjValue = Math.min(adjValue, MAX_RANGE);
-    adjValue = Math.max(adjValue, 0);
-    
-    int interval = (int) MAX_RANGE /  getCount();
-    int position =  (int) adjValue / interval;
-
+        
+    int position = (int) ((mStartX - x) * -1/VELOCITY);
     setSelection(position);
     
+    if (position < 0)
+      mStartX = x;
+    else if (position > getCount()) {
+      float mEndX = (getCount() * VELOCITY) + mStartX;
+      mStartX += x - mEndX;
+    }
   }
 
 }
