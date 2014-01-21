@@ -9,8 +9,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
 
-import com.google.glass.util.PowerHelper;
-
 public class HeadScrollView extends ScrollView implements SensorEventListener {
 
   public HeadScrollView(Context context) {
@@ -28,7 +26,8 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
   private Sensor mSensor;
   private int mLastAccuracy;
   private SensorManager mSensorManager;
-  private float mStartX = 10;
+  private static final float INVALID_X = 10;
+  private float mStartX = INVALID_X;
   private static final int SENSOR_RATE_uS = 200000;
   private static final float VELOCITY = -1000; // from rad to pixels
   
@@ -38,12 +37,12 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
       mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
     }
     
+    mStartX = INVALID_X ;
     mSensorManager.registerListener(this, mSensor, SENSOR_RATE_uS);
-    mStartX = 10;
   }
   
   public void deactivate() {
-    mStartX = 10;
+    mStartX = INVALID_X;
     
     if (mSensorManager == null)
       return;
@@ -79,7 +78,7 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
           x = orientation[1],
           y = orientation[2];
     
-    if (mStartX  == 10)
+    if (mStartX  == INVALID_X)
       mStartX = x;
    
     int prior = getScrollY();
