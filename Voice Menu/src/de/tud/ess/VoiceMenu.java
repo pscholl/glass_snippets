@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.StateListDrawable;
+import android.media.AudioManager;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.glass.media.Sounds;
 import com.google.glass.input.VoiceInputHelper;
 import com.google.glass.util.PowerHelper;
 import com.google.glass.voice.VoiceCommand;
@@ -63,6 +67,7 @@ public class VoiceMenu extends StubVoiceListener {
   protected String mActivationWord;
   protected RelativeLayout mLayout;
   protected boolean mShowing = false;
+  protected AudioManager mAudio;
   
   public VoiceMenu(Activity c, String hotword, String... items) {
     mContext = c;
@@ -71,8 +76,8 @@ public class VoiceMenu extends StubVoiceListener {
         VoiceInputHelper.newUserActivityObserver(mContext));
     
     String[] hotwords = new String[items.length+1];
-    for (int i=1; i<items.length; i++)
-      hotwords[i] = items[i-1];
+    for (int i=0; i<items.length; i++)
+      hotwords[i+1] = items[i];
     hotwords[0] = hotword;
     
     mActivationWord = hotword;
@@ -81,6 +86,7 @@ public class VoiceMenu extends StubVoiceListener {
     
     mItems = items;
     mPower = new PowerHelper(mContext);
+    mAudio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
   }
   
   @Override
@@ -101,7 +107,7 @@ public class VoiceMenu extends StubVoiceListener {
   @Override
   public VoiceConfig onVoiceCommand(VoiceCommand vc) {
     String literal = vc.getLiteral();
-    mPower.stayAwake(3000);
+    mPower.stayAwake(6000);
     
     if (mListener == null) {
       shutdown();
@@ -114,6 +120,7 @@ public class VoiceMenu extends StubVoiceListener {
     for (String item : mItems) {
       if ( item.equals(literal) ) {
         mListener.onItemSelected(item);
+        shutdown();
         return mVoiceConfig;
       }
     }
@@ -122,9 +129,7 @@ public class VoiceMenu extends StubVoiceListener {
   }
   
   private void shutdown() {
-    if (mScroll == null)
-      Log.e("meh", "called again");
-    else
+    if (mScroll != null)
     {
       mVoiceInputHelper.detachVoiceInputCallback();
       mScroll.deactivate();
@@ -134,7 +139,7 @@ public class VoiceMenu extends StubVoiceListener {
       mShowing = false;
     }
   }
-
+  
   public void show() {
     if (mShowing )
       return;
@@ -179,5 +184,20 @@ public class VoiceMenu extends StubVoiceListener {
     
     mShowing = true;
     mScroll.activate();
+    mScroll.requestFocus();
+    
+    mScroll.setOnKeyListener(new OnKeyListener() {
+      @Override // catch the TAP event
+      public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER && mListener != null) {
+          mListener.onItemSelected((String) mScroll.getSelectedItem());
+          if (mAudio != null)
+            mAudio.playSoundEffect(Sounds.TAP);
+          shutdown();
+          return true;
+        }
+        return false;
+      }
+    });
   }
 }

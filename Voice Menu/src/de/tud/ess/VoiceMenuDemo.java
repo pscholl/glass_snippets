@@ -13,6 +13,7 @@ import de.tud.ess.VoiceMenu.VoiceMenuListener;
 public class VoiceMenuDemo extends Activity implements VoiceMenuListener {
   private TextView mTextView;
   private String mDefaultText;
+  private VoiceMenu mVoice;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -21,21 +22,28 @@ public class VoiceMenuDemo extends Activity implements VoiceMenuListener {
     setContentView(R.layout.main);
     mTextView = (TextView) findViewById(R.id.textView);
     
-    mDefaultText = "Say 'ok glass' to open the menu, or directly the command from the list.";
+    mDefaultText = "Say 'ok glass' to open the menu, or directly the command from the list. ";
     
     /* Typeface can't be set in layout specs prior to API16 */
     Typeface roboto = RobotoTypefaces.getTypeface(this, RobotoTypefaces.WEIGHT_THIN);
     mTextView.setTypeface(roboto);
     mTextView.setText(mDefaultText);
     mTextView.setGravity(Gravity.CENTER);
+    
+    mVoice = new VoiceMenu(this, "ok glass",
+        "At least it looks simple from here right now".split(" "));
   }
   
   @Override
   protected void onResume() {
     super.onResume();
-    VoiceMenu v = new VoiceMenu(this, "ok glass",
-        "At least it looks simple from here, right?".split(" "));
-    v.setListener(this);
+    mVoice.setListener(this);
+  }
+  
+  @Override
+  protected void onPause() {
+    mVoice.setListener(null);
+    super.onPause();
   }
 
   @Override
