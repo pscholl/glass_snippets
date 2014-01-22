@@ -5,14 +5,12 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.StateListDrawable;
 import android.media.AudioManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -45,6 +43,8 @@ public class VoiceMenu extends StubVoiceListener {
       tv.setTypeface(roboto);
       tv.setText(mItems[position]);
       tv.setGravity(Gravity.LEFT);
+      tv.setTextSize(40);
+      tv.setTextColor(0xFFFFFFFF);
       
       return tv;
     }
@@ -63,7 +63,7 @@ public class VoiceMenu extends StubVoiceListener {
   protected String[] mItems;
   protected HeadListView mScroll;
   protected VoiceMenuListener mListener;
-  protected FrameLayout mRoot;
+  protected ViewGroup mRoot;
   protected String mActivationWord;
   protected RelativeLayout mLayout;
   protected boolean mShowing = false;
@@ -101,7 +101,7 @@ public class VoiceMenu extends StubVoiceListener {
     if (mListener != null)
       mVoiceInputHelper.addVoiceServiceListener();
     else
-      mVoiceInputHelper.detachVoiceInputCallback();
+      mVoiceInputHelper.removeVoiceServiceListener();
   }
   
   @Override
@@ -144,9 +144,10 @@ public class VoiceMenu extends StubVoiceListener {
     if (mShowing )
       return;
     
-    mRoot = (FrameLayout) mContext.getWindow().getDecorView().findViewById(android.R.id.content);   
+    mRoot = (ViewGroup) ((ViewGroup) mContext.getWindow().getDecorView()).getRootView();   
     
     mLayout = new RelativeLayout(mContext);
+    mRoot.bringChildToFront(mLayout);
     mLayout.setBackgroundColor(0xDD000000);
     ViewGroup.LayoutParams p = new ViewGroup.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT, 
@@ -160,6 +161,8 @@ public class VoiceMenu extends StubVoiceListener {
     tv.setText(mActivationWord + ", ");
     tv.setGravity(Gravity.LEFT);
     tv.setId(1);
+    tv.setTextSize(40);
+    tv.setTextColor(0xFFFFFFFF);
     
     RelativeLayout.LayoutParams params;
     params = new RelativeLayout.LayoutParams(
