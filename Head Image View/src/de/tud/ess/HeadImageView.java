@@ -107,15 +107,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
     float tx = (mEdgeX - ry) * velocityX,
           ty = (mEdgeY - rx) * velocityY;
     
-    // https://stackoverflow.com/questions/7773206/where-does-android-view-scrolltox-y-scroll-to
-    
-    if      (tx > w)  tx = w;
-    else if (tx < -2*w) tx = -2*w;
-    
-    if      (ty > h)  ty = h;
-    else if (ty < -2*h) ty = -2*h;
-    
-    
+    // https://stackoverflow.com/questions/7773206/where-does-android-view-scrolltox-y-scroll-to    
     scrollTo((int) -tx, (int) -ty);
   }
 
