@@ -77,6 +77,8 @@ public class HeadImageView extends ImageView implements SensorEventListener {
           mOrientation = new float[3];
   float mEdgeX = INVALID, 
         mEdgeY = INVALID;
+  protected Float MAX_SCROLL_X=null;
+  protected Float MAX_SCROLL_Y=null;
 
   @Override
   public void onSensorChanged(SensorEvent event) {
@@ -101,13 +103,20 @@ public class HeadImageView extends ImageView implements SensorEventListener {
           velocityX = (float) (w/2 * (1/ANGLE_RANGE_X)),
           velocityY = (float) (h/2 * (1/ANGLE_RANGE_Y));
     
+    if (MAX_SCROLL_X == null) MAX_SCROLL_X = w * (1-1/SCALE_FACTOR)/4;
+    if (MAX_SCROLL_Y == null) MAX_SCROLL_Y = h * (1-1/SCALE_FACTOR)/2;
+    
     if (mEdgeX == INVALID) mEdgeX = ry;
     if (mEdgeY == INVALID) mEdgeY = rx;
     
     float tx = (mEdgeX - ry) * velocityX,
           ty = (mEdgeY - rx) * velocityY;
     
-    // https://stackoverflow.com/questions/7773206/where-does-android-view-scrolltox-y-scroll-to    
+    // https://stackoverflow.com/questions/7773206/where-does-android-view-scrolltox-y-scroll-to
+    if (Math.abs(tx) > MAX_SCROLL_X) tx = Math.signum(tx) * MAX_SCROLL_X;
+    if (Math.abs(ty) > MAX_SCROLL_Y) ty = Math.signum(ty) * MAX_SCROLL_Y;
+
+    
     scrollTo((int) -tx, (int) -ty);
   }
 
