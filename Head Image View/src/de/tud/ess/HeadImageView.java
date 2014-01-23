@@ -34,6 +34,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
   
   public void setScaleFactor(float factor) {
     mScaleFactor = factor;
+    MAX_SCROLL_X = MAX_SCROLL_Y = null;
   }
   
   @Override
@@ -73,7 +74,6 @@ public class HeadImageView extends ImageView implements SensorEventListener {
   }
   
   static final float INVALID = 10;
-  protected final float dps = getContext().getResources().getDisplayMetrics().density;
   protected static final float ANGLE_RANGE_Y = (float) (Math.PI/16);
   protected static final float ANGLE_RANGE_X = (float) (Math.PI/8);
   float[] mMat = new float[9],
@@ -92,9 +92,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
       return;
     
     float w = getWidth(),
-          h = getHeight(),
-          x = getTranslationX(), // in px, midpoint
-          y = getTranslationY();
+          h = getHeight();
     
     SensorManager.getRotationMatrixFromVector(mMat, event.values);
     SensorManager.remapCoordinateSystem(mMat, SensorManager.AXIS_X, SensorManager.AXIS_Z, mMat);
