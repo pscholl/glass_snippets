@@ -15,7 +15,7 @@ import android.widget.ImageView;
 public class HeadImageView extends ImageView implements SensorEventListener {
 
   protected static final int SENSOR_RATE = 50 * 1000 * 1000;
-  protected static final float SCALE_FACTOR = 5;
+  protected float mScaleFactor = 5;
   protected SensorManager mSensorManager;
   protected Sensor mSensor;
   protected int mLastAccuracy;
@@ -32,11 +32,15 @@ public class HeadImageView extends ImageView implements SensorEventListener {
     super(context, attrs);
   }
   
+  public void setScaleFactor(float factor) {
+    mScaleFactor = factor;
+  }
+  
   @Override
   protected void onVisibilityChanged(View changedView, int visibility) {
     super.onVisibilityChanged(changedView, visibility);
     if (visibility == VISIBLE) activate();
-    else                     deactivate();
+    else                       deactivate();
   }
 
   public void deactivate() {
@@ -48,7 +52,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
     mSensor = null;
     setAnimation(null);
   }
-
+  
   public void activate() {
     if (mSensorManager != null)
       return; // already active
@@ -58,7 +62,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
     mSensorManager.registerListener(this, mSensor, SENSOR_RATE);
     
     // animate a delayed zoom in
-    ScaleAnimation a = new ScaleAnimation(1, SCALE_FACTOR, 1, SCALE_FACTOR,
+    ScaleAnimation a = new ScaleAnimation(1, mScaleFactor, 1, mScaleFactor,
         Animation.RELATIVE_TO_SELF, .5F, Animation.RELATIVE_TO_SELF, .5F);
     
     a.setDuration(500);
@@ -67,7 +71,6 @@ public class HeadImageView extends ImageView implements SensorEventListener {
     a.setFillEnabled(true);
     setAnimation(a);
   }
-  
   
   static final float INVALID = 10;
   protected final float dps = getContext().getResources().getDisplayMetrics().density;
@@ -103,21 +106,34 @@ public class HeadImageView extends ImageView implements SensorEventListener {
           velocityX = (float) (w/2 * (1/ANGLE_RANGE_X)),
           velocityY = (float) (h/2 * (1/ANGLE_RANGE_Y));
     
-    if (MAX_SCROLL_X == null) MAX_SCROLL_X = w * (1-1/SCALE_FACTOR)/4;
-    if (MAX_SCROLL_Y == null) MAX_SCROLL_Y = h * (1-1/SCALE_FACTOR)/2;
+    if (MAX_SCROLL_X == null) MAX_SCROLL_X = w * (1-1/mScaleFactor)/4;
+    if (MAX_SCROLL_Y == null) MAX_SCROLL_Y = h * (1-1/mScaleFactor)/2;
     
     if (mEdgeX == INVALID) mEdgeX = ry;
     if (mEdgeY == INVALID) mEdgeY = rx;
     
-    float tx = (mEdgeX - ry) * velocityX,
-          ty = (mEdgeY - rx) * velocityY;
+    float dx = radbox(mEdgeX - ry),
+          dy = radbox(mEdgeY - rx);
     
-    // https://stackoverflow.com/questions/7773206/where-does-android-view-scrolltox-y-scroll-to
-    if (Math.abs(tx) > MAX_SCROLL_X) tx = Math.signum(tx) * MAX_SCROLL_X;
-    if (Math.abs(ty) > MAX_SCROLL_Y) ty = Math.signum(ty) * MAX_SCROLL_Y;
-
+    if (Math.abs(dx) > MAX_SCROLL_X / velocityX) {
+      float mx = Math.signum(dx) * (Math.abs(dx) - MAX_SCROLL_X / velocityX);
+      mEdgeX = radbox(mEdgeX - mx);
+    }
+    
+    if (Math.abs(dy) > MAX_SCROLL_Y / velocityY) {
+      float my = Math.signum(dy) * (Math.abs(dy) - MAX_SCROLL_Y / velocityY);
+      mEdgeY = radbox(mEdgeY - my);
+    }
+    
+    float tx = dx * velocityX,
+          ty = dy * velocityY;
     
     scrollTo((int) -tx, (int) -ty);
+  }
+
+  protected float radbox(float x) {
+    // keep radian in [-pi: pi]
+    return (float) (x + (x>Math.PI ? -2*Math.PI : x<-Math.PI ? 2*Math.PI : 0));
   }
 
   @Override

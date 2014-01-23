@@ -22,7 +22,7 @@ public class HeadImageViewDemo extends Activity {
     
     InputStream is = null;
     try {
-      is = getAssets().open("lego.jpg");
+      is = getAssets().open("lego2.jpg");
     } catch (IOException e) {
       e.printStackTrace();
       return;
