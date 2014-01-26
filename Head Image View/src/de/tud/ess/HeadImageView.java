@@ -94,8 +94,6 @@ public class HeadImageView extends ImageView implements SensorEventListener {
     float w = getMeasuredWidth(),
           h = getMeasuredHeight();
     
-    Log.e("headview", String.format("w: %.2f h: %.2f", w,h));
-    
     SensorManager.getRotationMatrixFromVector(mMat, event.values);
     SensorManager.remapCoordinateSystem(mMat, SensorManager.AXIS_X, SensorManager.AXIS_Z, mMat);
     SensorManager.getOrientation(mMat, mOrientation);
