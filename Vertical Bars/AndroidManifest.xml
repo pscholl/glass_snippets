@@ -12,7 +12,7 @@
         android:label="@string/app_name" >
 
         <activity
-            android:name="de.tud.ess.Main"
+            android:name="de.tud.ess.VerticalBarsDemo"
             android:label="@string/app_name"
             android:enabled="true" >
             <intent-filter>

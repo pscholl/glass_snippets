@@ -3,7 +3,7 @@ package de.tud.ess;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class Main extends Activity {
+public class VerticalBarsDemo extends Activity {
 
   protected VerticalBars vBars;
 
@@ -17,12 +17,10 @@ public class Main extends Activity {
   @Override
   protected void onResume() {
     super.onResume();
-    vBars.activate();
   }
   
   @Override
   protected void onPause() {
-    vBars.deactivate();
     super.onPause();
   }
   
