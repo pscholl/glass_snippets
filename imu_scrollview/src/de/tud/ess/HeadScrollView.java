@@ -6,8 +6,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
+
+import com.google.glass.util.PowerHelper;
 
 public class HeadScrollView extends ScrollView implements SensorEventListener {
 
@@ -26,8 +29,7 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
   private Sensor mSensor;
   private int mLastAccuracy;
   private SensorManager mSensorManager;
-  private static final float INVALID_X = 10;
-  private float mStartX = INVALID_X;
+  private float mStartX = 10;
   private static final int SENSOR_RATE_uS = 200000;
   private static final float VELOCITY = -1000; // from rad to pixels
   
@@ -37,12 +39,12 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
       mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
     }
     
-    mStartX = INVALID_X ;
     mSensorManager.registerListener(this, mSensor, SENSOR_RATE_uS);
+    mStartX = 10;
   }
   
   public void deactivate() {
-    mStartX = INVALID_X;
+    mStartX = 10;
     
     if (mSensorManager == null)
       return;
@@ -78,11 +80,18 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
           x = orientation[1],
           y = orientation[2];
     
-    if (mStartX  == INVALID_X)
+    if (mStartX  == 10)
       mStartX = x;
+    
+    float mEndX = mStartX - (getChildAt(0).getHeight()-getHeight()*0.5F) / VELOCITY;
    
-    int prior = getScrollY();
-    scrollTo(0, (int) ((mStartX-x) * VELOCITY));
+    int prior = getScrollY(),
+        pos   = (int) ((mStartX-x) * VELOCITY);
+    
+    if (x < mStartX) mStartX = x;
+    else if (x > mEndX)   mStartX += x- mEndX;
+
+    scrollTo(0, pos);
   }
 
 }
