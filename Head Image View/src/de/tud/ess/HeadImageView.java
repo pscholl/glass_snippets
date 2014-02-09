@@ -6,7 +6,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -15,7 +14,7 @@ import android.widget.ImageView;
 public class HeadImageView extends ImageView implements SensorEventListener {
 
   protected static final int SENSOR_RATE = 50 * 1000 * 1000;
-  protected float mScaleFactor = 5;
+  protected float mScaleFactor = 1;
   protected SensorManager mSensorManager;
   protected Sensor mSensor;
   protected int mLastAccuracy;
@@ -33,15 +32,40 @@ public class HeadImageView extends ImageView implements SensorEventListener {
   }
   
   public void setScaleFactor(float factor) {
+    if (getAnimation() != null && !getAnimation().hasEnded())
+      getAnimation().cancel();
+    
+    if (factor < 1)
+      factor=1;
+    
+    deactivate();
+    
+    ScaleAnimation a = new ScaleAnimation(mScaleFactor, factor, mScaleFactor, factor,
+        Animation.RELATIVE_TO_SELF, .5F, Animation.RELATIVE_TO_SELF, .5F);
+  
+    a.setDuration(500);
+    a.setFillAfter(true);
+    a.setFillEnabled(true);
+    setAnimation(a);
+
     mScaleFactor = factor;
     MAX_SCROLL_X = MAX_SCROLL_Y = null;
+    
+    activate();
+  }
+  
+  public float getScaleFactor() {
+    return mScaleFactor;
   }
   
   @Override
   protected void onVisibilityChanged(View changedView, int visibility) {
     super.onVisibilityChanged(changedView, visibility);
-    if (visibility == VISIBLE) activate();
-    else                       deactivate();
+    
+    if (visibility == VISIBLE) { 
+      if (mScaleFactor != 1) activate();
+    }
+    else deactivate();
   }
 
   public void deactivate() {
@@ -51,7 +75,6 @@ public class HeadImageView extends ImageView implements SensorEventListener {
     mSensorManager.unregisterListener(this);
     mSensorManager = null;
     mSensor = null;
-    setAnimation(null);
   }
   
   public void activate() {
@@ -61,16 +84,11 @@ public class HeadImageView extends ImageView implements SensorEventListener {
     mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
     mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
     mSensorManager.registerListener(this, mSensor, SENSOR_RATE);
-    
-    // animate a delayed zoom in
-    ScaleAnimation a = new ScaleAnimation(1, mScaleFactor, 1, mScaleFactor,
-        Animation.RELATIVE_TO_SELF, .5F, Animation.RELATIVE_TO_SELF, .5F);
-    
-    a.setDuration(500);
-    a.setStartOffset(1000);
-    a.setFillAfter(true);
-    a.setFillEnabled(true);
-    setAnimation(a);
+
+    if (getAnimation() != null) { // && !getAnimation().hasEnded())
+      getAnimation().reset();
+      startAnimation(getAnimation());
+    }
   }
   
   static final float INVALID = 10;
@@ -84,14 +102,14 @@ public class HeadImageView extends ImageView implements SensorEventListener {
   protected Float MAX_SCROLL_Y=null;
 
   @Override
-  public void onSensorChanged(SensorEvent event) {
+  public void onSensorChanged(SensorEvent event) {    
     if (mLastAccuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
       return;
     
-    if (!getAnimation().hasEnded())
+    if (getAnimation() == null || !getAnimation().hasEnded())
       return;
     
-    float w = getMeasuredWidth(),
+    float w = getWidth(),
           h = getMeasuredHeight();
     
     SensorManager.getRotationMatrixFromVector(mMat, event.values);
@@ -104,7 +122,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
           velocityX = (float) (w/2 * (1/ANGLE_RANGE_X)),
           velocityY = (float) (h/2 * (1/ANGLE_RANGE_Y));
     
-    if (MAX_SCROLL_X == null) MAX_SCROLL_X = w * (1-1/mScaleFactor)/4;
+    if (MAX_SCROLL_X == null) MAX_SCROLL_X = w * (1-1/mScaleFactor)/2;
     if (MAX_SCROLL_Y == null) MAX_SCROLL_Y = h * (1-1/mScaleFactor)/2;
     
     if (mEdgeX == INVALID) mEdgeX = ry;
@@ -127,6 +145,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
           ty = dy * velocityY;
     
     scrollTo((int) -tx, (int) -ty);
+    ((View) getParent()).invalidate();
   }
 
   protected float radbox(float x) {
