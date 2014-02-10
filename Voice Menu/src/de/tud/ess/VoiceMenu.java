@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.StateListDrawable;
 import android.media.AudioManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -43,7 +44,7 @@ public class VoiceMenu extends StubVoiceListener {
       tv.setTypeface(roboto);
       tv.setText(mItems[position]);
       tv.setGravity(Gravity.LEFT);
-      tv.setTextSize(40);
+      tv.setTextSize(30);
       tv.setTextColor(0xFFFFFFFF);
       
       return tv;
@@ -74,17 +75,12 @@ public class VoiceMenu extends StubVoiceListener {
     mVoiceInputHelper = new VoiceInputHelper(
         mContext, this,
         VoiceInputHelper.newUserActivityObserver(mContext));
-    
-    String[] hotwords = new String[items.length+1];
-    for (int i=0; i<items.length; i++)
-      hotwords[i+1] = items[i];
-    hotwords[0] = hotword;
-    
+       
     mActivationWord = hotword;
     mVoiceConfig = new VoiceConfig(
-        c.getApplicationInfo().name, hotwords);
-    
-    mItems = items;
+        c.getApplicationInfo().name, new String[] {});
+    setCommands(items);
+
     mPower = new PowerHelper(mContext);
     mAudio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
   }
@@ -110,15 +106,20 @@ public class VoiceMenu extends StubVoiceListener {
     mPower.stayAwake(6000);
     
     if (mListener == null) {
+      mVoiceInputHelper.removeVoiceServiceListener();
       shutdown();
       return mVoiceConfig;
     }
     
-    if (literal.equals(mActivationWord))
+    if (literal.equals(mActivationWord)) {
       show();
+      Log.e("labAssist", String.format("command %s", literal));
+      mListener.onItemSelected(mActivationWord);
+    }
     
     for (String item : mItems) {
       if ( item.equals(literal) ) {
+        Log.e("labAssist", String.format("command %s", literal));
         mListener.onItemSelected(item);
         shutdown();
         return mVoiceConfig;
@@ -128,10 +129,9 @@ public class VoiceMenu extends StubVoiceListener {
     return null;
   }
   
-  private void shutdown() {
+  public void shutdown() {
     if (mScroll != null)
     {
-      mVoiceInputHelper.detachVoiceInputCallback();
       mScroll.deactivate();
       mRoot.removeView(mLayout);
       mScroll = null;
@@ -141,8 +141,10 @@ public class VoiceMenu extends StubVoiceListener {
   }
   
   public void show() {
-    if (mShowing )
+    if (mShowing)
       return;
+   
+    Log.e("labAssist", "voice menu started");
     
     mRoot = (ViewGroup) ((ViewGroup) mContext.getWindow().getDecorView()).getRootView();   
     
@@ -161,7 +163,7 @@ public class VoiceMenu extends StubVoiceListener {
     tv.setText(mActivationWord + ", ");
     tv.setGravity(Gravity.LEFT);
     tv.setId(1);
-    tv.setTextSize(40);
+    tv.setTextSize(30);
     tv.setTextColor(0xFFFFFFFF);
     
     RelativeLayout.LayoutParams params;
@@ -202,5 +204,16 @@ public class VoiceMenu extends StubVoiceListener {
         return false;
       }
     });
+  }
+
+  public void setCommands(String[] items) {
+    mItems = items;
+    String[] hotwords = new String[items.length+1];
+    for (int i=0; i<items.length; i++)
+      hotwords[i+1] = items[i];
+    hotwords[0] = mActivationWord;
+    
+    mVoiceConfig.setPhrases(hotwords);
+    mVoiceInputHelper.setVoiceConfig(mVoiceConfig, false);
   }
 }
