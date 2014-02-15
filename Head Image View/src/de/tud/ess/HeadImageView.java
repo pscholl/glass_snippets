@@ -145,7 +145,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
           ty = dy * velocityY;
     
     scrollTo((int) -tx, (int) -ty);
-    ((View) getParent()).invalidate();
+    if (getParent() != null) ((View) getParent()).invalidate();
   }
 
   protected float radbox(float x) {
