@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="voice_trigger">camera test</string>
-    <string name="app_name">Glass Camera Test</string>
+    <string name="voice_trigger">show me a demo</string>
+    <string name="app_name">glass camera</string>
 </resources>

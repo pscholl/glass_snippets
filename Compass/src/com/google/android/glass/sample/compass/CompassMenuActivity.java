@@ -37,11 +37,7 @@ import android.view.MenuItem;
  * This activity manages the options menu that appears when the user taps on the compass's live
  * card.
  */
-public class CompassMenuActivity extends Activity {
-
-    public static final String LANDMARKS = "compass_landmark";
-    public static final String LANDMARK_KEYS = "landmark_keys";
-    
+public class CompassMenuActivity extends Activity {    
     private CompassService.CompassBinder mCompassService;
     private boolean mResumed;
 
@@ -111,14 +107,7 @@ public class CompassMenuActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    protected void set_landmark() {
-      SharedPreferences p = getSharedPreferences(LANDMARKS, 
-          MODE_MULTI_PROCESS|MODE_WORLD_WRITEABLE|MODE_WORLD_READABLE);
-      
-      mCompassService.markCurrentHeading();
-    }
-
+    
     @Override
     public void onOptionsMenuClosed(Menu menu) {
         super.onOptionsMenuClosed(menu);

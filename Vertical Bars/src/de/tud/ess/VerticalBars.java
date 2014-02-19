@@ -12,8 +12,10 @@ import android.widget.LinearLayout;
 public class VerticalBars extends LinearLayout {
 
   protected static final String TAG = "VerticalBars";
-  public static final int MAX_DELAY_inS = 240;
-  public static final int MIN_DELAY_inS = 40;
+  protected static final long BAR_FREQ_MS = 400;
+  protected static final int MAX_DELAY_inS = 240;
+  protected static final int MIN_DELAY_inS = 40;
+  protected static final int MIN_HEIGHT = 10;
   
   public class ColorChanger implements Runnable {
     protected Random mRand = new Random();
@@ -36,7 +38,6 @@ public class VerticalBars extends LinearLayout {
   }
 
   public class BarAnimator implements Runnable {
-    protected static final int MIN_HEIGHT = 10;
     protected Random mRand = new Random();
     protected int mWithMaxHeight = -1;
 
@@ -76,7 +77,6 @@ public class VerticalBars extends LinearLayout {
     }
   }
 
-  protected static final long BAR_FREQ_MS = 400;
   protected BarAnimator mBarAnimator;
   protected ColorChanger mColorChanger;
   protected int[] mBarGoals   = null;
@@ -109,9 +109,9 @@ public class VerticalBars extends LinearLayout {
         mBarAnimator = new BarAnimator();
       if (mColorChanger==null)
         mColorChanger = new ColorChanger();
-      post(mBarAnimator);
-      post(mColorChanger);
       
+      postDelayed(mColorChanger, (MIN_DELAY_inS + (new Random()).nextInt(MAX_DELAY_inS-MIN_DELAY_inS))*1000);
+      postDelayed(mBarAnimator, BAR_FREQ_MS);
     } else {
       removeCallbacks(mBarAnimator);
       removeCallbacks(mColorChanger);

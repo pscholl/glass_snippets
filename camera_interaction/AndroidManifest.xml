@@ -8,6 +8,7 @@
 	<uses-feature android:name="android.hardware.camera.autofocus" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 	
 	<uses-sdk
 		android:minSdkVersion="15"
@@ -17,8 +18,8 @@
         android:allowBackup="true"
         android:label="@string/app_name" >
 
-        <activity
-            android:name="de.tud.ess.CameraTest"
+        <service
+            android:name="de.tud.ess.CameraService"
             android:label="@string/app_name"
             android:enabled="true" >
             <intent-filter>
@@ -27,7 +28,7 @@
             <meta-data
                 android:name="com.google.android.glass.VoiceTrigger"
                 android:resource="@xml/voicecmd" />
-        </activity>
+        </service>
 
     </application>
 </manifest>
