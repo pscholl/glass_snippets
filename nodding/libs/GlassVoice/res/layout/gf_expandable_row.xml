@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:id="@id/gf_expandable_row" android:layout_width="fill_parent" android:layout_height="wrap_content" style="@style/gf_ListItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/gf_label" android:layout_width="0.0px" android:layout_height="wrap_content" android:layout_weight="1.0" />
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</LinearLayout>

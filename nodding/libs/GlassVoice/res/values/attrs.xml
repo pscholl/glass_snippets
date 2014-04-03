@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="fontWeight">
+        <flag name="regular" value="0x00000000" />
+        <flag name="thin" value="0x00000001" />
+        <flag name="light" value="0x00000002" />
+        <flag name="medium" value="0x00000003" />
+        <flag name="bold" value="0x00000004" />
+        <flag name="black" value="0x00000005" />
+        <flag name="italic" value="0x00000010" />
+        <flag name="condensed" value="0x00000100" />
+    </attr>
+    <attr name="id" format="reference" />
+    <attr name="name" format="string" />
+    <attr name="image" format="reference" />
+    <attr name="isDefaultItem" format="boolean" />
+    <attr name="tip" format="reference" />
+</resources>

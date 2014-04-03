@@ -1,0 +1,19 @@
+precision mediump float;
+
+const float A_IN = 0.2;
+const float A_RIM = 0.8;
+const float RIM_WIDTH_PX = 2.0;
+
+uniform vec4 color;
+
+varying vec2 vCoord;
+varying float vPxSize;
+
+void main() {
+  float rOuter = 1.0 - vPxSize;
+  float rInner = rOuter - RIM_WIDTH_PX * vPxSize;
+  float d = length(vCoord);
+  float alphaIn = A_IN + (1.0 - A_IN) * smoothstep(rInner - vPxSize, rInner, d);
+  float alphaOut = A_RIM - A_RIM * smoothstep(rOuter, rOuter + vPxSize, d);
+  gl_FragColor = vec4(color.rgb, alphaIn * alphaOut);
+}

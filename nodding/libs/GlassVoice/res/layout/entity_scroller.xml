@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.glass.input.InputDetectingFrameLayout android:id="@id/root" android:background="@color/background_black" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.google.glass.entity.EntityHorizontalScrollView android:id="@id/scroll_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.google.glass.widget.SliderView android:layout_gravity="bottom" android:id="@id/slider" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+</com.google.glass.input.InputDetectingFrameLayout>

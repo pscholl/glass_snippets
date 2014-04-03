@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gf_header_background">#ff828282</color>
+    <color name="gf_shadow">#cc222222</color>
+    <color name="gf_foreground_content">#ffffffff</color>
+    <color name="text_gray">#ffbbbbbb</color>
+    <color name="text_gray_thin_bold">#ff666666</color>
+    <color name="person_count_text_gray">#ff808080</color>
+    <color name="background_dark_gray">#ff222222</color>
+    <color name="background_dark_gray_semitransparent">#99222222</color>
+    <color name="background_black">#ff000000</color>
+    <color name="background_black_semitransparent">#cc000000</color>
+    <color name="background_black_search_cover_transparent">#a6000000</color>
+    <color name="state_green">#ff99cc33</color>
+    <color name="state_yellow">#ffddbb11</color>
+    <color name="state_red">#ffcc3333</color>
+    <color name="divider">#ff666666</color>
+    <color name="people_grid_frame_focused">#ffffffff</color>
+    <color name="step_secondary_text">#ffc0c0c0</color>
+    <color name="highlight_text">#ff99cc33</color>
+    <color name="traffic_status_green">#ff99cc33</color>
+    <color name="traffic_status_yellow">#ffddbb11</color>
+    <color name="traffic_status_red">#ffff3333</color>
+    <color name="traffic_status_unknown">#ffffffff</color>
+    <color name="route_polyline_color">#ff186fac</color>
+    <color name="pane_background_color">#a0000000</color>
+    <color name="place_card_map_background">#ff303030</color>
+    <color name="accuracy_circle_color">#ff7caaff</color>
+</resources>

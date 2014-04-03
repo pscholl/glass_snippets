@@ -1,0 +1,27 @@
+uniform float fillWidth;
+uniform vec4 baseColor;
+uniform int ignoreValue;
+uniform mat4 MVP;
+
+attribute float value;
+attribute vec4 position;
+attribute vec2 texCoord;
+
+varying vec2 vTexCoord;
+varying vec4 vColor;
+
+void main() {
+  float texS = (texCoord.s / fillWidth) - (0.5 / fillWidth - 0.5);
+  if (texCoord.t >= 0.5) {
+    float texT = (texCoord.t / fillWidth) - (0.5 / fillWidth - 0.5);
+    vTexCoord = vec2(texS, texT);
+  } else {
+    vTexCoord = vec2(texS, texCoord.t);
+  }
+  if (ignoreValue != 0) {
+    vColor = baseColor;
+  } else {
+    vColor = vec4(baseColor.rgb * value, baseColor.a);
+  }
+  gl_Position = MVP * position;
+}

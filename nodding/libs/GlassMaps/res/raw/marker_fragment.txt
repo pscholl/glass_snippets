@@ -1,0 +1,14 @@
+precision mediump float;
+
+// 1 if this marker should pulse, 0 if not.
+uniform float isPulse;
+uniform float pulseFactor;
+uniform sampler2D markerTexture;
+
+varying vec2 vTexCoord;
+
+void main() {
+  vec4 color = texture2D(markerTexture, vTexCoord);
+  float value = 1.0 - isPulse * pulseFactor;
+  gl_FragColor = vec4(color.rgb * value, color.a);
+}

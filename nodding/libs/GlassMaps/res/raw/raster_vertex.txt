@@ -1,0 +1,8 @@
+uniform mat4 MVP;
+attribute vec4 position;
+varying vec2 vTexCoord;
+
+void main() {
+  vTexCoord = vec2(position.x, 1.0 - position.y);
+  gl_Position = MVP * position;
+}

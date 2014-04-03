@@ -1,0 +1,28 @@
+uniform mat4 MVP;
+uniform vec4 center;
+uniform float radius;
+uniform vec2 viewSize;
+
+attribute vec2 pos;
+
+varying vec2 vCoord;
+varying float vPxSize;
+
+void main() {
+  vCoord = pos.xy * 2.0;
+
+  // Displace the point.
+  vec4 v = center + vec4(vCoord, 0.0, 0.0) * radius;
+
+  // Project point and center.
+  vec4 proj = MVP * v;
+  vec4 centerProj = MVP * center;
+
+  // Compute the size of a pixel relative to fragment coordinates.
+  vec2 projPx = (proj.xy / proj.w) * viewSize * 0.5;
+  vec2 centerPx = (centerProj.xy / centerProj.w) * viewSize * 0.5;
+  float radiusPx = length(projPx - centerPx) / sqrt(2.0);
+  vPxSize = 1.0 / radiusPx;
+
+  gl_Position = proj;
+}

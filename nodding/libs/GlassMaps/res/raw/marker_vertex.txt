@@ -1,0 +1,27 @@
+// Location at which the marker is centered.
+uniform vec4 location;
+
+// Size of the marker, in projected space.
+uniform vec2 markerSize;
+
+// Scale factor for animations.
+uniform vec2 markerScale;
+
+// Size of a single marker in texture coordinate space.
+uniform vec2 markerTexCoordSize;
+
+uniform mat4 MVP;
+uniform float markerType;
+
+// Displacement vector for this vertex, on a unit square centered at the origin.
+attribute vec2 displacement;
+
+varying vec2 vTexCoord;
+
+void main() {
+  vec2 texCoordCenter = vec2((markerType + 0.5) * markerTexCoordSize.x,
+                             0.5 * markerTexCoordSize.y);
+  vTexCoord = texCoordCenter + vec2(displacement.x, -displacement.y) * markerTexCoordSize;
+  vec4 projected = MVP * location;
+  gl_Position = projected + vec4(displacement * markerSize * markerScale * projected.w, 0, 0);
+}

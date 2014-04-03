@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:glass="http://schemas.android.com/apk/res/com.google.glass.maps">
+    <LinearLayout android:gravity="left" android:layout_gravity="left" android:orientation="vertical" android:paddingLeft="40.0px" android:paddingTop="40.0px" android:paddingBottom="40.0px" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <LinearLayout android:gravity="left" android:layout_gravity="left" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <com.google.glass.widget.TypophileTextView android:textSize="40.0px" android:textColor="@*android:color/white" android:ellipsize="end" android:layout_gravity="left" android:layout_width="160.0px" android:layout_height="wrap_content" android:text="@string/guard_phrase_menu_item" glass:fontWeight="thin" />
+            <com.google.glass.widget.TypophileTextView android:textSize="40.0px" android:textColor="@*android:color/white" android:ellipsize="end" android:gravity="left" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/voice_menu_item_navigation_on" android:drawablePadding="34.0px" glass:fontWeight="thin" />
+        </LinearLayout>
+        <com.google.glass.widget.TypophileTextView android:textSize="40.0px" android:textColor="@*android:color/white" android:id="@id/result_text" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="32.0dip" android:layout_marginBottom="40.0dip" android:maxLines="3" android:minLines="2" android:layout_alignParentLeft="true" android:layout_alignParentBottom="true" glass:fontWeight="thin" />
+    </LinearLayout>
+    <com.google.glass.widget.SliderView android:id="@id/loading_slider" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" />
+</RelativeLayout>

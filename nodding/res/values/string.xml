@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stop_menu">stop</string>
+    <string name="show_nod_voice_trigger">hello</string>
+    <string name="app_name">Nod Menu</string>
+</resources>

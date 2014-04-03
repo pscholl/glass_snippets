@@ -1,0 +1,24 @@
+// Vertex shader for polylines. Use with road_fragment shader.
+
+uniform float fillWidth;
+uniform vec4 baseColor;
+uniform mat4 MVP;
+uniform float ignoreColorBuffer;
+
+attribute vec4 position;
+attribute vec2 texCoord;
+attribute vec3 color;
+
+varying vec2 vTexCoord;
+varying vec4 vColor;
+
+void main() {
+  if (texCoord.t >= 0.5) {
+    vTexCoord = vec2(texCoord.s / fillWidth, (texCoord.t - 0.5) / fillWidth + 0.5);
+  } else {
+    vTexCoord = vec2(texCoord.s / fillWidth, texCoord.t);
+  }
+  // If ignoreColorBuffer is 1, use baseColor. If 0, multiply baseColor and color.
+  vColor = baseColor * min(vec4(1.0), vec4(color, 1.0) + vec4(ignoreColorBuffer));
+  gl_Position = MVP * position;
+}

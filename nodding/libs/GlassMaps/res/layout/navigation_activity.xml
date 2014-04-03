@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/frame" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.opengl.GLSurfaceView android:id="@id/map" android:visibility="gone" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height" />
+    <ViewStub android:id="@id/spotlight_mask_stub" android:visibility="gone" android:layout="@layout/navigation_spotlight" android:inflatedId="@id/spotlight_mask" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height" />
+    <ViewStub android:id="@id/voice_result_pane_stub" android:visibility="gone" android:layout="@layout/voice_result" android:inflatedId="@id/voice_result_pane" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height" />
+    <ViewStub android:id="@id/rerouting_pane_stub" android:visibility="gone" android:layout="@layout/rerouting_pane" android:inflatedId="@id/rerouting_pane" android:layout_width="@dimen/glass_screen_width" android:layout_height="wrap_content" />
+    <ViewStub android:id="@id/step_pane_1_stub" android:visibility="gone" android:layout="@layout/navigation_step" android:inflatedId="@id/step_pane_1" android:layout_width="@dimen/glass_screen_width" android:layout_height="wrap_content" />
+    <ViewStub android:id="@id/step_pane_2_stub" android:visibility="gone" android:layout="@layout/navigation_step" android:inflatedId="@id/step_pane_2" android:layout_width="@dimen/glass_screen_width" android:layout_height="wrap_content" />
+    <ViewStub android:id="@id/route_overview_stub" android:visibility="gone" android:layout="@layout/route_overview_pane" android:inflatedId="@id/route_overview_pane" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <FrameLayout android:padding="@dimen/navigation_pane_padding" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height">
+        <ImageView android:layout_gravity="top|right|center" android:id="@id/no_gps_icon" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/no_gps" />
+        <LinearLayout android:layout_gravity="bottom" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="0.0">
+            <ImageView android:gravity="left" android:layout_gravity="left" android:id="@id/travel_mode_icon" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <com.google.glass.widget.TypophileTextView android:ellipsize="end" android:gravity="left" android:layout_gravity="left" android:id="@id/destination" android:visibility="gone" android:layout_width="0.0px" android:layout_height="wrap_content" android:singleLine="true" android:layout_weight="1.0" style="@style/navigation_small" />
+            <com.google.glass.widget.TypophileTextView android:ellipsize="end" android:gravity="right" android:layout_gravity="right" android:id="@id/status" android:visibility="gone" android:layout_width="0.0px" android:layout_height="wrap_content" android:singleLine="true" android:layout_weight="1.0" style="@style/navigation_small" />
+        </LinearLayout>
+    </FrameLayout>
+    <ViewStub android:id="@id/destinations_pane_stub" android:visibility="gone" android:layout="@layout/destinations_pane" android:inflatedId="@id/destinations_pane" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height" />
+    <ViewStub android:id="@id/trips_pane_stub" android:visibility="gone" android:layout="@layout/trips_pane" android:inflatedId="@id/trips_pane" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height" />
+    <ViewStub android:id="@id/steps_pane_stub" android:visibility="gone" android:layout="@layout/steps_pane" android:inflatedId="@id/steps_pane" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height" />
+    <ViewStub android:id="@id/transit_map_stub" android:visibility="gone" android:layout="@layout/transit_map_pane" android:inflatedId="@id/transit_map_pane" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height" />
+    <ViewStub android:id="@id/loading_pane_stub" android:visibility="gone" android:layout="@layout/loading_pane" android:inflatedId="@id/loading_pane" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height" />
+    <ImageView android:id="@id/gradient" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_centerInParent="true" />
+    <com.google.glass.widget.TypophileTextView android:layout_gravity="bottom|center" android:id="@id/guard_phrase_hint" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="4.0px" android:text="@string/guard_phrase_hint" android:layout_alignParentBottom="true" android:layout_centerInParent="true" style="@style/TipsViewText" />
+</FrameLayout>

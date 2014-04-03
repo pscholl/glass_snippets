@@ -1,0 +1,23 @@
+uniform mat4 MVP;
+uniform vec4 pos;
+uniform vec2 size;
+uniform vec2 viewSize;
+uniform vec2 maxTex;
+
+attribute vec2 displacement;
+
+varying vec2 vTexCoord;
+
+void main() {
+  vTexCoord = vec2((displacement.x + 0.5) * maxTex.x, (-displacement.y + 0.5) * maxTex.y);
+
+  // Project center into pixel space
+  vec4 centerProj = MVP * pos;
+  vec2 centerPx = (centerProj.xy / centerProj.w) * (viewSize * 0.5);
+
+  // Add corner displacement and snap to pixel grid
+  vec2 cornerPx = floor(centerPx + displacement * size) + fract(viewSize / 2.0);
+
+  // Convert back to clip space
+  gl_Position = vec4(cornerPx / (viewSize * 0.5), 0, 1.0);
+}

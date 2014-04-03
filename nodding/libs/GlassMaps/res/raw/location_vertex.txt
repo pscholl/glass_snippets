@@ -1,0 +1,21 @@
+// Vertex shader for location; used with marker_fragment shader
+const float numTypes = 2.0;
+
+uniform mat4 MVP;
+uniform vec4 center;
+uniform float theta;
+uniform float size;
+uniform float markerIndex;
+
+attribute vec2 displacement;
+
+varying vec2 vTexCoord;
+
+void main() {
+  vec2 texCoordCenter = vec2((markerIndex + 0.5) / numTypes, 0.5);
+  vTexCoord = texCoordCenter + vec2(displacement.x / numTypes, -displacement.y);
+
+  mat2 Rotation = mat2(cos(theta), sin(theta), -sin(theta), cos(theta));
+  vec2 pos = Rotation * displacement * size;
+  gl_Position = MVP * (center + vec4(pos, 0.0, 0.0));
+}

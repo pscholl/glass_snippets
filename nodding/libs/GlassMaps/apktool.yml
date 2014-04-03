@@ -1,0 +1,13 @@
+version: 1.5.2
+apkFileName: GlassMaps.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+sdkInfo:
+  minSdkVersion: '15'
+  targetSdkVersion: '17'
+packageInfo:
+  cur_package: com.google.glass.maps
+  orig_package: com.google.glass.maps
+compressionType: false

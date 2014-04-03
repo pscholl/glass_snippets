@@ -1,0 +1,38 @@
+<!--
+Track file used as the mock track when one does not already exist at:
+/sdcard/Android/data/com.google.android.apps.maps/track/sample.track
+-->
+<event-log>
+<event time='00000'><location provider='gps'>00000 -122.332988 47.622599 3 170 9.7</location></event>
+<event time='01000'><location provider='gps'>01000 -122.332962 47.622508 3 166 9.7</location></event>
+<event time='02000'><location provider='gps'>02000 -122.332940 47.622422 3 166 9.5</location></event>
+<event time='03000'><location provider='gps'>03000 -122.332946 47.622336 3 172 9.2</location></event>
+<event time='04000'><location provider='gps'>04000 -122.332951 47.622256 3 175 9.0</location></event>
+<event time='05000'><location provider='gps'>05000 -122.332967 47.622197 3 178 7.0</location></event>
+<event time='06000'><location provider='gps'>06000 -122.332978 47.622138 3 179 6.0</location></event>
+<event time='07000'><location provider='gps'>07000 -122.332983 47.622095 3 177 4.7</location></event>
+<event time='08000'><location provider='gps'>08000 -122.332994 47.622068 3 175 3.5</location></event>
+<event time='09000'><location provider='gps'>09000 -122.333010 47.622047 3 184 3.0</location></event>
+<event time='10000'><location provider='gps'>10000 -122.333031 47.622020 3 201 3.2</location></event>
+<event time='11000'><location provider='gps'>11000 -122.333074 47.621998 3 222 4.0</location></event>
+<event time='12000'><location provider='gps'>12000 -122.333149 47.621988 3 244 5.0</location></event>
+<event time='13000'><location provider='gps'>13000 -122.333235 47.621988 3 256 6.0</location></event>
+<event time='14000'><location provider='gps'>14000 -122.333337 47.621993 4 263 6.7</location></event>
+<event time='15000'><location provider='gps'>15000 -122.333444 47.621993 3 267 7.2</location></event>
+<event time='16000'><location provider='gps'>16000 -122.333541 47.622004 3 271 7.0</location></event>
+<event time='17000'><location provider='gps'>17000 -122.333638 47.622009 3 272 7.2</location></event>
+<event time='18000'><location provider='gps'>18000 -122.333739 47.622014 3 272 7.2</location></event>
+<event time='19000'><location provider='gps'>19000 -122.333809 47.621982 3 247 5.5</location></event>
+<event time='20000'><location provider='gps'>20000 -122.333895 47.621977 3 255 6.0</location></event>
+<event time='21000'><location provider='gps'>21000 -122.333976 47.621971 3 254 6.0</location></event>
+<event time='22000'><location provider='gps'>22000 -122.334040 47.621977 3 260 4.7</location></event>
+<event time='23000'><location provider='gps'>23000 -122.334094 47.621988 3 263 3.5</location></event>
+<event time='24000'><location provider='gps'>24000 -122.334126 47.621993 3 266 2.0</location></event>
+<event time='25000'><location provider='gps'>25000 -122.334142 47.622004 3 269 1.0</location></event>
+<event time='26000'><location provider='gps'>26000 -122.334153 47.622009 3 274 0.7</location></event>
+<event time='27000'><location provider='gps'>27000 -122.334174 47.622014 3 279 1.7</location></event>
+<event time='28000'><location provider='gps'>28000 -122.334212 47.622030 3 297 3.0</location></event>
+<event time='29000'><location provider='gps'>29000 -122.334238 47.622068 3 324 3.7</location></event>
+<event time='30000'><location provider='gps'>30000 -122.334254 47.622116 3 354 5.0</location></event>
+<destination address="Kirkland, WA"/>
+</event-log>

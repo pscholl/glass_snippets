@@ -1,0 +1,12 @@
+uniform float alpha;
+uniform mat4 MVP;
+
+attribute vec2 position;
+attribute vec4 color;
+
+varying vec4 vColor;
+
+void main() {
+  vColor = vec4(color.r, color.g, color.b, alpha);
+  gl_Position = MVP * vec4(position, 0, 1);
+}

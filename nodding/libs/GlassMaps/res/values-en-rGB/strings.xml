@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gf_app_name">Google Feedback</string>
+    <string name="gf_back">Back</string>
+    <string name="gf_feedback">Feedback</string>
+    <string name="gf_user_account">User Account</string>
+    <string name="gf_anonymous">Anonymous</string>
+    <string name="gf_choose_an_account">Choose an account</string>
+    <string name="gf_report_feedback">Report feedback</string>
+    <string name="gf_screenshot_preview">Screenshot Preview</string>
+    <string name="gf_preview">Preview</string>
+    <string name="gf_send">Send</string>
+    <string name="gf_preview_feedback">Preview feedback</string>
+    <string name="gf_no_data">No data</string>
+    <string name="gf_privacy">Privacy</string>
+    <string name="gf_include_system_data">Include system data</string>
+    <string name="gf_include_screenshot">Include screenshot</string>
+    <string name="gf_this_will_help">Share system data with Google, to better diagnose the problem.</string>
+    <string name="gf_this_will_help_screenshot">Send screenshot of the last page that you were on.</string>
+    <string name="gf_unknown_app">Unknown application</string>
+    <string name="gf_report_being_sent">Thanks, your report is being sent.</string>
+    <string name="gf_report_sent_failure">Sorry, there was an error while sending your report.</string>
+    <string name="gf_report_queued">Your device seems to be offline. We will retry when you are connected.</string>
+    <string name="gf_optional_description">Description (optional)</string>
+    <string name="gf_system_log">System log</string>
+    <string name="gf_sys_logs">System Logs</string>
+    <string name="gf_privacy_policy">Privacy Policy</string>
+    <string name="gf_privacy_text">By selecting [Send], you acknowledge and agree that any information contained in the feedback report will be used by Google in accordance with the Google privacy policies applicable to the application through which you initiated the report. You agree that Google may use any feedback that you provide to improve any Google products or services.</string>
+    <string name="gf_should_submit_on_empty_description">You have not entered an issue description. Are you sure that you want to send feedback without a description?</string>
+    <string name="gf_should_submit_anonymously">You are submitting feedback anonymously. Your email address may help us debug your reported issue better. Are you sure that you want to continue?</string>
+    <string name="gf_yes">Yes</string>
+    <string name="gf_no">No</string>
+</resources>

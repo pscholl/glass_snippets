@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@*android:color/black" android:layout_width="fill_parent" android:layout_height="fill_parent" android:keepScreenOn="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextureView android:id="@id/viewfinder" android:layout_width="fill_parent" android:layout_height="fill_parent" android:alpha="0.0" />
+    <ImageView android:id="@id/overlay" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/qr_code_scan_frame" />
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/qr_scan_text_bottom_padding" android:layout_alignParentBottom="true">
+        <ImageView android:id="@id/overlay" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/qr_code_footer" />
+        <com.google.glass.widget.TypophileTextView android:id="@id/label" android:paddingLeft="@dimen/between_icon_text_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/qr_scan_tips" android:singleLine="true" style="@style/SmallOverlayText" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/bluetooth_device_card" android:background="@drawable/overlay_small" android:layout_width="fill_parent" android:layout_height="fill_parent" android:keepScreenOn="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="@dimen/lhs_width" android:layout_height="fill_parent" style="@style/TimelineLhs">
+        <ImageView android:id="@id/bluetooth_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_bluetooth_off_big" />
+    </LinearLayout>
+    <RelativeLayout style="@style/GenericCardRhs">
+        <com.google.glass.widget.TypophileTextView android:ellipsize="end" android:id="@id/bt_device_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:singleLine="true" style="@style/TimelineBluetoothDeviceName" />
+        <com.google.glass.widget.TypophileTextView android:id="@id/bt_headset_connection_state" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/bt_device_name" style="@style/SettingsHeaderText" />
+        <com.google.glass.widget.TypophileTextView android:id="@id/bt_tethered_state" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/bt_headset_connection_state" style="@style/SettingsHeaderText" />
+        <com.google.glass.widget.TypophileTextView android:id="@id/bt_companion_state" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/bt_tethered_state" style="@style/SettingsHeaderText" />
+        <com.google.glass.widget.TypophileTextView android:id="@id/bt_pairing_details" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" style="@style/SettingsFooterText" />
+    </RelativeLayout>
+</LinearLayout>

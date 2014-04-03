@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/frame" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.opengl.GLSurfaceView android:id="@id/map" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height" />
+    <View android:layout_gravity="top" android:background="@drawable/gradient_top" android:layout_width="fill_parent" android:layout_height="90.0px" />
+    <LinearLayout android:layout_gravity="top" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/transit_card_margin" android:layout_marginTop="@dimen/transit_card_margin" android:layout_marginRight="@dimen/transit_card_margin">
+        <com.google.glass.widget.TypophileTextView android:gravity="left" android:id="@id/from_to_duration" android:layout_width="wrap_content" android:layout_height="fill_parent" android:maxLines="1" android:singleLine="true" style="@style/transit_text" />
+        <com.google.glass.widget.TypophileTextView android:ellipsize="end" android:gravity="right" android:id="@id/summary_icons" android:layout_width="wrap_content" android:layout_height="fill_parent" android:maxLines="1" android:singleLine="true" android:layout_weight="1.0" style="@style/transit_text" />
+    </LinearLayout>
+    <View android:layout_gravity="bottom" android:background="@drawable/gradient_bottom" android:layout_width="fill_parent" android:layout_height="90.0px" />
+    <LinearLayout android:layout_gravity="bottom" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/transit_card_margin" android:layout_marginRight="@dimen/transit_card_margin" android:layout_marginBottom="@dimen/transit_card_margin" android:layout_weight="0.0">
+        <com.google.glass.widget.TypophileTextView android:ellipsize="end" android:gravity="left" android:id="@id/destination" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:singleLine="true" android:layout_weight="1.0" style="@style/transit_text" />
+        <com.google.glass.widget.TypophileTextView android:gravity="right" android:id="@id/status" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" style="@style/transit_text" />
+    </LinearLayout>
+</FrameLayout>

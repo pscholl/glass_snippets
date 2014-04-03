@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:padding="@dimen/navigation_pane_padding" android:layout_width="@dimen/glass_screen_width" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:glass="http://schemas.android.com/apk/res/com.google.glass.maps">
+    <ImageView android:id="@id/turn_icon" android:layout_width="70.0px" android:layout_height="70.0px" android:layout_marginLeft="20.0px" android:layout_marginTop="5.0px" android:layout_marginRight="20.0px" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+    <com.google.glass.widget.TypophileTextView android:ellipsize="end" android:gravity="center_vertical" android:id="@id/street_name" android:layout_width="wrap_content" android:layout_height="96.0px" android:layout_marginTop="-10.0px" android:maxLines="1" android:layout_toRightOf="@id/turn_icon" android:layout_alignParentTop="true" android:layout_alignWithParentIfMissing="true" style="@style/LargeOverlayText" />
+    <com.google.glass.widget.TypophileTextView android:gravity="center" android:id="@id/distance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="85.0px" android:minWidth="100.0px" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" style="@style/navigation_small" />
+</RelativeLayout>

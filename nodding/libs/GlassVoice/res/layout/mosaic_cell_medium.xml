@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@color/background_dark_gray" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="-25.0px" android:src="@drawable/ic_anon_medium" />
+    <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/overlay_small" android:scaleType="centerCrop" />
+    <com.google.glass.widget.TypophileTextView android:textColor="@color/text_gray" android:ellipsize="end" android:gravity="center" android:layout_gravity="bottom" android:id="@id/text" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/footer_text_horizontal_padding" android:layout_marginRight="@dimen/footer_text_horizontal_padding" android:layout_marginBottom="31.0px" android:maxLines="1" android:singleLine="true" style="@style/SmallOverlayText" />
+    <ImageView android:id="@id/image" android:background="@color/background_dark_gray" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="centerCrop" />
+</FrameLayout>

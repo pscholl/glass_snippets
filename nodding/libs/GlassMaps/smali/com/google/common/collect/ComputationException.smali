@@ -1,0 +1,16 @@
+.class public Lcom/google/common/collect/ComputationException;
+.super Ljava/lang/RuntimeException;
+
+
+# static fields
+.field private static final serialVersionUID:J
+
+
+# direct methods
+.method public constructor <init>(Ljava/lang/Throwable;)V
+    .locals 0
+
+    invoke-direct {p0, p1}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/Throwable;)V
+
+    return-void
+.end method

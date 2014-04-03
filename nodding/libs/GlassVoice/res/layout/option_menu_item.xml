@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="40.0px" android:layout_marginRight="40.0px"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="fill_parent">
+        <ImageView android:id="@id/icon" android:layout_width="50.0px" android:layout_height="50.0px" android:layout_marginRight="20.0px" android:adjustViewBounds="true" />
+        <com.google.glass.widget.TypophileTextView android:ellipsize="end" android:id="@id/label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" style="@style/LargeOverlayText" />
+    </LinearLayout>
+    <com.google.glass.widget.TipsView android:layout_gravity="bottom|center" android:id="@id/description" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="40.0px" style="@style/TipsViewText" />
+</FrameLayout>

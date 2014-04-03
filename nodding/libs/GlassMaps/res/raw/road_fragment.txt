@@ -1,0 +1,12 @@
+precision mediump float;
+
+uniform sampler2D roadTexture;
+
+varying vec2 vTexCoord;
+varying vec4 vColor;
+
+void main() {
+  vec4 texColor = texture2D(roadTexture, vTexCoord, -0.5);
+  vec3 color = clamp(vColor.rgb, 0.0, 1.0);
+  gl_FragColor = vec4(color, texColor.r * vColor.a);
+}

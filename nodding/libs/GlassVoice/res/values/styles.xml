@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="gf_PageHeader">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/gf_header_background</item>
+        <item name="android:padding">@dimen/gf_padding</item>
+    </style>
+    <style name="gf_SectionHeader">
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@*android:drawable/dark_header</item>
+        <item name="android:paddingLeft">@dimen/gf_padding</item>
+    </style>
+    <style name="gf_Separator">
+        <item name="android:src">@*android:drawable/divider_horizontal_dark</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+    <style name="gf_ListItem">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/gf_list_item_padding</item>
+        <item name="android:paddingTop">3.0dip</item>
+        <item name="android:paddingRight">@dimen/gf_list_item_padding</item>
+        <item name="android:paddingBottom">3.0dip</item>
+        <item name="android:minHeight">@dimen/gf_list_item_height</item>
+    </style>
+    <style name="Animation.Modal" parent="@*android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/modal_enter</item>
+        <item name="android:windowExitAnimation">@anim/modal_exit</item>
+    </style>
+    <style name="Animation.ContextualDialog" parent="@*android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/contextual_enter</item>
+        <item name="android:windowExitAnimation">@anim/contextual_exit</item>
+    </style>
+    <style name="Animation.Modal.FadeIn" parent="@style/Animation.Modal">
+        <item name="android:windowEnterAnimation">@anim/fade_enter</item>
+    </style>
+    <style name="Animation.Modal.NoneIn" parent="@style/Animation.Modal">
+        <item name="android:windowEnterAnimation">@null</item>
+    </style>
+    <style name="Animation.MainTimeline" parent="@*android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/timeline_enter</item>
+        <item name="android:windowExitAnimation">@anim/timeline_exit</item>
+    </style>
+    <style name="Animation.BundleTimeline" parent="@*android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/bundle_enter</item>
+        <item name="android:windowExitAnimation">@anim/bundle_exit</item>
+    </style>
+    <style name="TimelineLhs">
+        <item name="android:background">@color/background_dark_gray</item>
+    </style>
+    <style name="TimelineRhs">
+        <item name="android:background">@color/background_black</item>
+    </style>
+    <style name="GenericCard">
+        <item name="android:background">@color/background_black</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="TopPaddedCard" parent="@style/GenericCard">
+        <item name="android:paddingTop">@dimen/generic_card_padding</item>
+    </style>
+    <style name="PaddedCard" parent="@style/GenericCard">
+        <item name="android:paddingLeft">@dimen/generic_card_padding</item>
+        <item name="android:paddingTop">@dimen/generic_card_padding</item>
+        <item name="android:paddingRight">@dimen/generic_card_padding</item>
+        <item name="android:paddingBottom">@dimen/generic_card_padding</item>
+    </style>
+    <style name="GenericCardLhs" parent="@style/GenericCard">
+        <item name="android:paddingLeft">@dimen/generic_card_padding</item>
+        <item name="android:paddingTop">@dimen/lhs_vertical_padding</item>
+        <item name="android:paddingRight">@dimen/lhs_right_padding</item>
+        <item name="android:paddingBottom">@dimen/lhs_vertical_padding</item>
+        <item name="android:layout_width">@dimen/lhs_width</item>
+    </style>
+    <style name="GenericCardInnerLhs" parent="@style/GenericCard">
+        <item name="android:paddingRight">@dimen/lhs_right_padding</item>
+        <item name="android:layout_width">@dimen/inner_lhs_width</item>
+    </style>
+    <style name="GenericCardRhs" parent="@style/GenericCard">
+        <item name="android:paddingLeft">@dimen/rhs_left_padding</item>
+        <item name="android:paddingTop">@dimen/rhs_vertical_padding</item>
+        <item name="android:paddingRight">@dimen/generic_card_padding</item>
+        <item name="android:paddingBottom">@dimen/rhs_vertical_padding</item>
+        <item name="android:layout_width">@dimen/rhs_width</item>
+    </style>
+    <style name="GenericCardInnerRhs" parent="@style/GenericCard">
+        <item name="android:paddingLeft">@dimen/rhs_left_padding</item>
+        <item name="android:layout_width">@dimen/inner_rhs_width</item>
+    </style>
+    <style name="GenericCardLhsImage" parent="@style/GenericCard">
+        <item name="android:background">@color/background_dark_gray</item>
+        <item name="android:layout_width">@dimen/lhs_width</item>
+    </style>
+    <style name="AdjustedCard" parent="@style/GenericCard">
+        <item name="android:paddingLeft">@dimen/generic_card_padding</item>
+        <item name="android:paddingTop">@dimen/adjusted_top_padding</item>
+        <item name="android:paddingRight">@dimen/generic_card_padding</item>
+        <item name="android:paddingBottom">@dimen/generic_card_padding</item>
+    </style>
+    <style name="AdjustedCardFooter" parent="@style/GenericCard">
+        <item name="android:paddingLeft">@dimen/generic_card_padding</item>
+        <item name="android:paddingTop">@dimen/adjusted_top_padding</item>
+        <item name="android:paddingRight">@dimen/generic_card_padding</item>
+        <item name="android:paddingBottom">@dimen/adjusted_bottom_padding</item>
+    </style>
+    <style name="AdjustedCardFooterRhs" parent="@style/GenericCard">
+        <item name="android:paddingLeft">@dimen/rhs_left_padding</item>
+        <item name="android:paddingTop">@dimen/adjusted_top_padding</item>
+        <item name="android:paddingRight">@dimen/generic_card_padding</item>
+        <item name="android:paddingBottom">@dimen/adjusted_bottom_padding</item>
+    </style>
+    <style name="OverlayText">
+        <item name="android:textColor">@*android:color/white</item>
+        <item name="android:shadowColor">@*android:color/black</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1.0</item>
+        <item name="fontWeight">thin</item>
+    </style>
+    <style name="OverlayGrayText" parent="@style/OverlayText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_gray_thin_bold</item>
+    </style>
+    <style name="OverlayGreenText" parent="@style/OverlayText">
+        <item name="android:textColor">@color/state_green</item>
+    </style>
+    <style name="OverlayRedText" parent="@style/OverlayText">
+        <item name="android:textColor">@color/state_red</item>
+    </style>
+    <style name="ExtraLargeOverlayText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/extra_large_text_size</item>
+    </style>
+    <style name="LargeOverlayText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+    <style name="MediumOverlayText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+    </style>
+    <style name="MediumOverlayGrayText" parent="@style/OverlayGrayText">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+    </style>
+    <style name="MediumOverlayGreenText" parent="@style/MediumOverlayText">
+        <item name="android:textColor">@color/state_green</item>
+    </style>
+    <style name="SmallOverlayText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="fontWeight">light</item>
+    </style>
+    <style name="PersonCountText">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:textColor">@color/person_count_text_gray</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="fontWeight">thin</item>
+    </style>
+    <style name="FitSixLinesOverlayText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/fit_six_lines_text_size</item>
+    </style>
+    <style name="DetailOverlayText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="fontWeight">light</item>
+    </style>
+    <style name="TimelineLhsTextLabel">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:textColor">#ff808080</item>
+        <item name="fontWeight">light</item>
+    </style>
+    <style name="SettingsHeaderText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+    </style>
+    <style name="TimelineWifiNetworkName" parent="@style/SettingsHeaderText">
+        <item name="android:textColor">@*android:color/white</item>
+    </style>
+    <style name="TimelineWifiNoData" parent="@style/SettingsHeaderText">
+        <item name="android:textColor">@color/state_red</item>
+    </style>
+    <style name="SettingsFooterText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="fontWeight">light</item>
+    </style>
+    <style name="TimelineBluetoothDeviceName" parent="@style/SettingsHeaderText">
+        <item name="android:textColor">@*android:color/white</item>
+    </style>
+    <style name="CurrentTemperatureText" parent="@style/OverlayText">
+        <item name="android:textSize">176.0px</item>
+    </style>
+    <style name="ErrorDialogText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="ErrorDialogSubText" parent="@style/ErrorDialogText">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="fontWeight">light</item>
+    </style>
+    <style name="TipsViewText" parent="@style/OverlayText">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="fontWeight">light</item>
+    </style>
+    <style name="GuardPhraseText" parent="@style/TipsViewText">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="fontWeight">thin</item>
+    </style>
+    <style name="TimelineMessageLinkText" parent="@style/OverlayText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@*android:color/white</item>
+    </style>
+    <style name="GlassTheme" parent="@*android:style/Theme.DeviceDefault">
+        <item name="android:screenOrientation">landscape</item>
+        <item name="android:windowBackground">@*android:color/black</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Modal</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:colorBackgroundCacheHint">@*android:color/black</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+    <style name="GlassTheme.Translucent" parent="@style/GlassTheme">
+        <item name="android:backgroundDimAmount">@dimen/background_dim_amount</item>
+        <item name="android:windowBackground">@*android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:colorBackgroundCacheHint">@*android:color/transparent</item>
+    </style>
+    <style name="GlassTheme.FadeIn" parent="@style/GlassTheme">
+        <item name="android:windowAnimationStyle">@style/Animation.Modal.FadeIn</item>
+    </style>
+    <style name="GlassTheme.NoneIn" parent="@style/GlassTheme">
+        <item name="android:windowAnimationStyle">@style/Animation.Modal.NoneIn</item>
+    </style>
+    <style name="GlassTheme.Translucent.FadeIn" parent="@style/GlassTheme.Translucent">
+        <item name="android:windowAnimationStyle">@style/Animation.Modal.FadeIn</item>
+    </style>
+    <style name="GlassTheme.MainTimeline" parent="@style/GlassTheme">
+        <item name="android:windowAnimationStyle">@style/Animation.MainTimeline</item>
+    </style>
+    <style name="GlassTheme.BundleTimeline" parent="@style/GlassTheme">
+        <item name="android:windowAnimationStyle">@style/Animation.BundleTimeline</item>
+    </style>
+    <style name="ContextualDialogTheme" parent="@*android:style/Theme">
+        <item name="android:backgroundDimAmount">@dimen/background_dim_amount</item>
+        <item name="android:windowBackground">@*android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.ContextualDialog</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:colorBackgroundCacheHint">@*android:color/transparent</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+    <style name="ContextualDialogTheme.NoAnimation" parent="@style/ContextualDialogTheme">
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+</resources>

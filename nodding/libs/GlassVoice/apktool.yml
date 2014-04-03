@@ -1,0 +1,13 @@
+version: 1.5.2
+apkFileName: GlassVoice.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+sdkInfo:
+  minSdkVersion: '15'
+  targetSdkVersion: '17'
+packageInfo:
+  cur_package: com.google.glass.voice
+  orig_package: com.google.glass.voice
+compressionType: false
