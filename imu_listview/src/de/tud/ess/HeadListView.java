@@ -77,7 +77,7 @@ public class HeadListView extends ListView implements SensorEventListener {
       mStartX = x;
         
     int position = (int) ((mStartX - x) * -1/VELOCITY);
-    setSelection(position);
+    smoothScrollToPosition(position);
     
     if (position < 0)
       mStartX = x;
