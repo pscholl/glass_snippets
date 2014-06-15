@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import android.app.Activity;
 import android.content.Context;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
