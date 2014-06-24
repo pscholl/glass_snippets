@@ -45,7 +45,7 @@ public class VoiceDetection extends StubVoiceListener {
 	public void changePhrases(String... phrases) {
 		mPhrases = assemblePhrases(mPhrases[0], phrases);
 		mVoiceConfig.setCustomPhrases(mPhrases);
-		mVoiceInputHelper.setVoiceConfig(mVoiceConfig, false);
+		mVoiceInputHelper.setVoiceConfig(mVoiceConfig);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class VoiceDetection extends StubVoiceListener {
 	@Override
 	public void onVoiceServiceConnected() {
 		super.onVoiceServiceConnected();
-		mVoiceInputHelper.setVoiceConfig(mVoiceConfig, false);
+		mVoiceInputHelper.setVoiceConfig(mVoiceConfig);
 	}
 
 	@Override
