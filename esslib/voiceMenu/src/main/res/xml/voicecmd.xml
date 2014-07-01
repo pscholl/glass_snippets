@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<trigger command="SHOW_ME_A_DEMO"/>
+
+ <!-- use this if you like to use your own voice trigger
+ but make sure to request permission with
+   <uses-permission
+      android:name="com.google.android.glass.permission.DEVELOPMENT" />
+ in AndroidManifest.xml
+ <trigger keyword="hello world"/>
+ -->
