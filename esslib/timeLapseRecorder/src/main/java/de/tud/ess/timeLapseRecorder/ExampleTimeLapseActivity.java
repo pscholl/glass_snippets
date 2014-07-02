@@ -19,7 +19,7 @@ public class ExampleTimeLapseActivity extends Activity {
     super.onResume();
 
     Intent camIntent = new Intent(this, CameraService.class);
-    camIntent.putExtra(CameraService.Parameters.RATE, .5f);   // recording frame rate
+    camIntent.putExtra(CameraService.Parameters.RATE, 25.5f);   // recording frame rate
     camIntent.putExtra(CameraService.Parameters.HEIGHT, 100); // for the preview
     camIntent.putExtra(CameraService.Parameters.WIDTH,  200);
     camIntent.putExtra(CameraService.Parameters.X, 0);        // position of top-left corner

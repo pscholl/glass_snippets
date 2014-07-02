@@ -10,6 +10,7 @@ import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
+import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
@@ -139,13 +140,20 @@ public class CameraService extends Service implements SurfaceHolder.Callback {
   // Stop recording and remove SurfaceView
   @Override
   public void onDestroy() {
-      mediaRecorder.stop();
-      mediaRecorder.reset();
-      mediaRecorder.release();
+      try {
+          if (mediaRecorder != null) {
+              mediaRecorder.stop();
+              mediaRecorder.reset();
+              mediaRecorder.release();
+          }
+      } catch(Exception e) {};
 
-      camera.lock();
-      camera.release();
+      if (camera != null) {
+          camera.lock();
+          camera.release();
+      }
 
+      MediaScannerConnection.scanFile(this, new String[]{mOutFile}, null, null);
       windowManager.removeView(surfaceView);
   }
 
