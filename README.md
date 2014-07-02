@@ -17,6 +17,12 @@ Snippets for Google Glass
  Another implementation of the Contextual Voice commands menu, phrases can be freely chosen.
  Displaying the menu is optional.
 
+## Head List View
+
+ This sample is included in the voice menu demo.
+ Moving your head it allows to scroll a list, like the "ok, glass" menu.
+ Implementation can be found in the HeadListView.java file.
+
 ## Time Lapse Recorder
 
  A Camera service that allows to record normal video and time lapses in background.

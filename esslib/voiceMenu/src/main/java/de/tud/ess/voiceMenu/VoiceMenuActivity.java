@@ -15,9 +15,14 @@ public class VoiceMenuActivity extends Activity implements VoiceDetection.VoiceD
     private static final String GREEN = "green";
     private static final String BLUE = "blue";
     private static final String RED = "red";
+    private static final String BROWN = "brown";
+    private static final String YELLOW = "yellow";
+    private static final String BLACK = "black";
+    private static final String WHITE = "white";
+
     private TextView mTextView;
     private VoiceMenuEss mVoiceMenu;
-    private String[] mPhrases = new String[] { RED, GREEN, BLUE };
+    private String[] mPhrases = new String[] { RED, GREEN, BLUE, BROWN, YELLOW, BLACK, WHITE };
 
     @Override
   protected void onCreate(Bundle savedInstanceState) {
