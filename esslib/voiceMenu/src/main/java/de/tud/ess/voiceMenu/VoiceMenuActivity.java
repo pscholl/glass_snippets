@@ -1,16 +1,13 @@
 package de.tud.ess.voiceMenu;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.TextView;
 
-import com.google.glass.voice.menu.VoiceMenu;
-
-import de.tud.ess.lib.VoiceDetection;
-import de.tud.ess.lib.VoiceMenuDialogFragment;
-import de.tud.ess.lib.VoiceMenuEss;
+import de.tud.ess.VoiceDetection;
+import de.tud.ess.VoiceMenuDialogFragment;
+import de.tud.ess.VoiceMenuEss;
 
 public class VoiceMenuActivity extends Activity implements VoiceDetection.VoiceDetectionListener {
 

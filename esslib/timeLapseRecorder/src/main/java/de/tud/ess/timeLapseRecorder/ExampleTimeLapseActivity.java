@@ -1,13 +1,12 @@
 package de.tud.ess.timeLapseRecorder;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import de.tud.ess.lib.CameraService;
+import de.tud.ess.CameraService;
 
 public class ExampleTimeLapseActivity extends Activity {
   protected void log(String msg) {
