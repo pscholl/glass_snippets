@@ -22,3 +22,10 @@ Snippets for Google Glass
  A Camera service that allows to record normal video and time lapses in background.
  Recording with a framerate > 25fps automatically turns on audio recording.
  The preview is displayed constantly, at a specified location with a specified size.
+
+## Head Image View
+
+ Use the AHRS of Glass to watch parts of a zoomed in Image.
+ Similar to the Google Glass Team Easter Egg.
+
+
