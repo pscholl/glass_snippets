@@ -1,2 +1,2 @@
-include ':lib', ':timeLapseRecorder'
+include ':lib', ':timeLapseRecorder', ':headImageView'
 include 'helloWorld', 'voiceMenu'

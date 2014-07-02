@@ -36,9 +36,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
       getAnimation().cancel();
     
     if (factor < 1)
-      factor = 1;
-    else if (factor > 2)
-      factor = 2;
+      factor=1;
     
     deactivate();
     
@@ -147,7 +145,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
           ty = dy * velocityY;
     
     scrollTo((int) -tx, (int) -ty);
-    if (getParent()!=null) ((View) getParent()).invalidate();
+    if (getParent() != null) ((View) getParent()).invalidate();
   }
 
   protected float radbox(float x) {
