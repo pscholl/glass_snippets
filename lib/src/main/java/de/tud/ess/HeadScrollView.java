@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 
@@ -78,8 +79,8 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
 		SensorManager.getOrientation(mat, orientation);
 
 		float z = orientation[0], // see https://developers.google.com/glass/develop/gdk/location-sensors/index
-				x = orientation[1],
-				y = orientation[2];
+		      x = orientation[1],
+			  y = orientation[2];
 
 		if (mStartX == 10)
 			mStartX = x;
@@ -87,12 +88,11 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
 		float mEndX = mStartX - (getChildAt(0).getHeight() - getHeight() * 0.5F) / VELOCITY;
 
 		int prior = getScrollY(),
-				pos = (int) ((mStartX - x) * VELOCITY);
+		      pos = (int) ((mStartX - x) * VELOCITY);
 
 		if (x < mStartX) mStartX = x;
 		else if (x > mEndX) mStartX += x - mEndX;
 
-		scrollTo(0, pos);
+		smoothScrollTo(0, pos);
 	}
-
 }

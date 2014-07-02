@@ -36,7 +36,6 @@ public class VoiceDetection extends StubVoiceListener {
 		res[0] = hotword;
 		for (int i=0; i<phrases.length; ++i)
 			res[i+1] = phrases[i];
-
 		return res;
 	}
 

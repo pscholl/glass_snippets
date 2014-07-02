@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -16,7 +17,7 @@ public class HeadListView extends ListView implements SensorEventListener {
 	private int mLastAccuracy;
 	private SensorManager mSensorManager;
 	private float mStartX = INVALID_X;
-	private static final int SENSOR_RATE_uS = 200000;
+	private static final int SENSOR_RATE_uS = 400000;
 	private static final float VELOCITY = (float) (Math.PI / 180 * 2); // scroll one item per 2°
 
 
@@ -48,12 +49,14 @@ public class HeadListView extends ListView implements SensorEventListener {
 			return;
 
 		mStartX = INVALID_X;
+        lastPosition = -1;
 		mSensorManager.registerListener(this, mSensor, SENSOR_RATE_uS);
 	}
 
 	public void deactivate() {
 		mSensorManager.unregisterListener(this);
 		mStartX = INVALID_X;
+        lastPosition = -1;
 	}
 
 	@Override
@@ -72,6 +75,8 @@ public class HeadListView extends ListView implements SensorEventListener {
 		mLastAccuracy = accuracy;
 	}
 
+    protected int lastPosition = -1;
+
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		float[] mat = new float[9],
@@ -85,22 +90,25 @@ public class HeadListView extends ListView implements SensorEventListener {
 		SensorManager.getOrientation(mat, orientation);
 
 		float z = orientation[0], // see https://developers.google.com/glass/develop/gdk/location-sensors/index
-				x = orientation[1],
-				y = orientation[2];
+			  x = orientation[1],
+			  y = orientation[2];
 
 		if (mStartX == INVALID_X)
 			mStartX = x;
 
-		final int position = (int) ((mStartX - x) * -1 / VELOCITY);
-		smoothScrollToPositionFromTop(position, 0);
-		;
+		int position = (int) ((mStartX - x) * -1 / VELOCITY);
 
 		if (position < 0)
 			mStartX = x;
 		else if (position > getCount()) {
-			float mEndX = (getCount() * VELOCITY) + mStartX;
-			mStartX += x - mEndX;
-		}
+            float mEndX = (getCount() * VELOCITY) + mStartX;
+            mStartX += x - mEndX;
+        }
+
+        if (lastPosition != position) {
+            smoothScrollToPosition(position);
+            lastPosition = position;
+        }
 	}
 
 }
