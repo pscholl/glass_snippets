@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ESS Glass Support</string>
+    <string name="app_name">ESS Glass Support Library</string>
+    <string name="cam_name">ESS Camera Support Service</string>
 </resources>
