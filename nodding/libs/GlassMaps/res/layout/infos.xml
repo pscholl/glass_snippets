@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="@color/background_black_semitransparent" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerInParent="true">
-        <ImageView android:id="@id/image" android:layout_width="160.0px" android:layout_height="160.0px" android:src="@drawable/ic_exclamation_big" android:scaleType="center" />
-        <com.google.glass.widget.TypophileTextView android:ellipsize="end" android:gravity="center" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0px" android:layout_marginTop="20.0px" android:layout_marginRight="20.0px" android:maxLines="2" style="@style/MediumOverlayText" />
-    </LinearLayout>
-</RelativeLayout>

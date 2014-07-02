@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:icon="@drawable/ic_arrow_right" android:id="@id/continue_option" android:title="@string/menu_continue" />
-    <item android:icon="@drawable/ic_warning_medium" android:id="@id/show_next_time" android:title="@string/menu_show_next_time" />
-</menu>

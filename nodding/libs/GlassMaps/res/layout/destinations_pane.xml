@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.glass.maps.DestinationCardsView android:background="@*android:color/black" android:layout_width="@dimen/glass_screen_width" android:layout_height="@dimen/glass_screen_height"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

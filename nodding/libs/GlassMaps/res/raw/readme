@@ -1,2 +1,0 @@
-This file only exists because without it CommonTests fails to include the common resources
-causing the tests to fail with lots of resource not found exceptions.
