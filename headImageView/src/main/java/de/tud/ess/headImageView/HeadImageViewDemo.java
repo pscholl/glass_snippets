@@ -36,6 +36,7 @@ public class HeadImageViewDemo extends Activity {
     o.inSampleSize = 4; // downsample
     Bitmap b  = BitmapFactory.decodeStream(is, null, o);
     mHeadView.setImageBitmap(b);
+    mHeadView.setScaleFactor(2);
   }
 
     @Override
