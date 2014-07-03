@@ -6,7 +6,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -67,7 +66,8 @@ public class HeadListView extends ListView implements SensorEventListener {
 	}
 
 	private boolean needsScrolling() {
-		return getListPaddingTop() < getChildAt(0).getTop() || getChildAt(getChildCount()-1).getBottom() > getBottom() - getListPaddingBottom();
+//		return getListPaddingTop() < getChildAt(0).getTop() || getChildAt(getChildCount()-1).getBottom() > getBottom() - getListPaddingBottom();
+		return true;
 	}
 
 	@Override
