@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 public class HeadImageView extends ImageView implements SensorEventListener {
 
-  protected static final int SENSOR_RATE = 50 * 1000 * 1000;
+  protected static final int SENSOR_RATE = 5 * 1000;
   protected float mScaleFactor = 1;
   protected SensorManager mSensorManager;
   protected Sensor mSensor;
