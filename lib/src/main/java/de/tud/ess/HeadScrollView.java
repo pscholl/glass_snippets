@@ -77,6 +77,15 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
 		else deactivate();
 	}
 
+
+//	@Override //Not called in CardScrollView
+//	protected void onDisplayHint(int hint) {
+//		super.onDisplayHint(hint);
+//
+//		if (hint == VISIBLE && needsScrolling()) activate();
+//		else deactivate();
+//	}
+
 	private boolean needsScrolling() {
 		return getPaddingTop() < getChildAt(0).getTop() || getChildAt(getChildCount()-1).getBottom() > getBottom() - getPaddingBottom();
 	}

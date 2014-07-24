@@ -65,6 +65,15 @@ public class HeadListView extends ListView implements SensorEventListener {
 		else deactivate();
 	}
 
+//	@Override //Not called in CardScrollView
+//	protected void onDisplayHint(int hint) {
+//		super.onDisplayHint(hint);
+//
+//		if (hint == VISIBLE && needsScrolling()) activate();
+//		else deactivate();
+//	}
+
+
 	private boolean needsScrolling() {
 		View a = getChildAt(0),
 				b = getChildAt(getChildCount() - 1);
