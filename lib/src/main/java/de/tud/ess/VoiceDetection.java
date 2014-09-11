@@ -21,11 +21,11 @@ public class VoiceDetection extends StubVoiceListener {
 	private boolean mRunning = true;
 
 	public VoiceDetection(Context context, String hotword, VoiceDetectionListener listener, String... phrases) {
-		mVoiceInputHelper = new VoiceInputHelper(context, this, VoiceInputHelper.newUserActivityObserver(context));
+		mVoiceInputHelper = new VoiceInputHelper(context, this);
 
 		mPhrases = assemblePhrases(hotword, phrases);
 
-		mVoiceConfig = new VoiceConfig(THIS+":VoiceService", mPhrases);
+		mVoiceConfig = new VoiceConfig(mPhrases);
 		mVoiceConfig.setShouldSaveAudio(false);
 
 		mListener = listener;
@@ -47,12 +47,12 @@ public class VoiceDetection extends StubVoiceListener {
 
 	/**
 	 * If the VoiceService is ready, refresh our Config
-	 */
+	 *
 	@Override
 	public void onVoiceServiceConnected() {
 		super.onVoiceServiceConnected();
 		mVoiceInputHelper.setVoiceConfig(mVoiceConfig);
-	}
+	}*/
 
 	@Override
 	public VoiceConfig onVoiceCommand(VoiceCommand vc) {
@@ -83,12 +83,12 @@ public class VoiceDetection extends StubVoiceListener {
 
 	public void start() {
 		mRunning = true;
-		mVoiceInputHelper.addVoiceServiceListener();
+        mVoiceInputHelper.setVoiceConfig(mVoiceConfig);
 	}
 
 	public void stop() {
 		mRunning = false;
-		mVoiceInputHelper.removeVoiceServiceListener();
+        mVoiceInputHelper.setVoiceConfig(null);
 	}
 
 	@Override
