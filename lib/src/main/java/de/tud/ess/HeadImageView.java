@@ -59,7 +59,7 @@ public class HeadImageView extends ImageView implements SensorEventListener {
   }
   
   @Override
-  protected void onVisibilityChanged(View changedView, int visibility) {
+  protected void onVisibilityChanged(View changedView, int visibility) {//TODO: probably wrong method (only on explicit visibiltiy changes, for hint if the current view is displayed, onDisplayHint())
     super.onVisibilityChanged(changedView, visibility);
     
     if (visibility == VISIBLE) { 

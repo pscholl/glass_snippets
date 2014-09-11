@@ -18,7 +18,5 @@
 		android:layout_height="match_parent"
 		android:layout_marginLeft="5dp"
 		android:id="@+id/hotword_chooser"
-		android:listSelector="@android:color/transparent"
-		android:divider="@null"
 		/>
 </LinearLayout>

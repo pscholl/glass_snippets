@@ -1,16 +1,36 @@
 package de.tud.ess;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ScrollView;
 
 public class HeadScrollView extends ScrollView implements SensorEventListener {
+
+	private ListAdapter adapter;
+	private DataSetObserver dataSetObserver;
+	private LinearLayout layout;
+
+	private class AdapterObserver extends DataSetObserver {
+		@Override
+		public void onChanged() {
+			layout.removeAllViews();
+			fillFromAdapter();
+		}
+
+		@Override
+		public void onInvalidated() {
+			layout.removeAllViews();
+		}
+	}
 
 	public HeadScrollView(Context context) {
 		super(context);
@@ -57,6 +77,15 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
 		else deactivate();
 	}
 
+
+//	@Override //Not called in CardScrollView
+//	protected void onDisplayHint(int hint) {
+//		super.onDisplayHint(hint);
+//
+//		if (hint == VISIBLE && needsScrolling()) activate();
+//		else deactivate();
+//	}
+
 	private boolean needsScrolling() {
 		return getPaddingTop() < getChildAt(0).getTop() || getChildAt(getChildCount()-1).getBottom() > getBottom() - getPaddingBottom();
 	}
@@ -94,5 +123,49 @@ public class HeadScrollView extends ScrollView implements SensorEventListener {
 		else if (x > mEndX) mStartX += x - mEndX;
 
 		smoothScrollTo(0, pos);
+	}
+
+	public void setAdapter(ListAdapter adapter) {
+		if (adapter == this.adapter)
+			return;
+
+		if (dataSetObserver == null)
+			dataSetObserver = new AdapterObserver();
+
+		if (layout == null) {
+			layout = new LinearLayout(getContext());
+			layout.setOrientation(LinearLayout.VERTICAL);
+			this.addView(layout);
+		}
+
+		if (this.adapter != null) {
+			this.adapter.unregisterDataSetObserver(dataSetObserver);
+			layout.removeAllViews();
+		}
+
+		if (adapter != null) {
+
+			this.adapter = adapter;
+			this.adapter.registerDataSetObserver(dataSetObserver);
+
+			fillFromAdapter();
+		}
+
+
+	}
+
+	private void fillFromAdapter() {
+		int last = adapter.getCount()-1;
+
+		for (int i = 0; i < last; i++) {
+			View v = adapter.getView(i, null, this);
+			layout.addView(v);
+			View divider = new View(getContext());
+			divider.setBackgroundColor(0xFF333333);
+			layout.addView(divider, new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, 1));
+		}
+
+		View v = adapter.getView(last, null, this);
+		layout.addView(v);
 	}
 }
