@@ -3,9 +3,10 @@ package de.tud.ess;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.glass.input.VoiceInputHelper;
+import com.google.glass.voice.VoiceInputHelper;
 import com.google.glass.voice.VoiceCommand;
 import com.google.glass.voice.VoiceConfig;
+import com.google.glass.voice.menu.GlassMenuGrammarLoader;
 
 /**
  * Created by Ramon on 22.04.2014.

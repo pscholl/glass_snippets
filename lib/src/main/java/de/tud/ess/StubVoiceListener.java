@@ -1,6 +1,6 @@
 package de.tud.ess;
 
-import com.google.glass.input.VoiceListener;
+import com.google.glass.voice.VoiceListener;
 import com.google.glass.logging.FormattingLogger;
 import com.google.glass.logging.FormattingLoggers;
 

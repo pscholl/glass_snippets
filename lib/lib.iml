@@ -82,7 +82,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 4.4.2 Glass Development Kit Preview" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="GlassVoice-xe21.0" level="project" />
+    <orderEntry type="library" exported="" name="GlassVoice-xe21.3" level="project" />
   </component>
 </module>
 
