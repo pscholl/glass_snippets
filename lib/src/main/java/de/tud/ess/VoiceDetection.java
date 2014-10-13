@@ -3,10 +3,9 @@ package de.tud.ess;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.glass.voice.VoiceInputHelper;
 import com.google.glass.voice.VoiceCommand;
 import com.google.glass.voice.VoiceConfig;
-import com.google.glass.voice.menu.GlassMenuGrammarLoader;
+import com.google.glass.voice.VoiceInputHelper;
 
 /**
  * Created by Ramon on 22.04.2014.
@@ -72,7 +71,7 @@ public class VoiceDetection extends StubVoiceListener {
 
 		for (int i=1; i< mPhrases.length; ++i) {
 			String item = mPhrases[i];
-			if (item.equals(literal)) {
+			if (item.equalsIgnoreCase(literal)) {// XE21 definitively converts the first letter to upper case!
 				Log.i(THIS, String.format("command %s", literal));
 				mListener.onPhraseDetected(i-1, literal);
 				return null;

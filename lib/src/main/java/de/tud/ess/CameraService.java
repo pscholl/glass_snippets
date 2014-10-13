@@ -1,8 +1,5 @@
 package de.tud.ess;
 
-import java.util.Date;
-import java.util.List;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +19,9 @@ import android.view.SurfaceView;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.view.animation.ScaleAnimation;
+
+import java.util.Date;
+import java.util.List;
 
 public class CameraService extends Service implements SurfaceHolder.Callback {
 
@@ -57,7 +57,7 @@ public class CameraService extends Service implements SurfaceHolder.Callback {
     if (intent.getExtras() != null) {
       Bundle e = intent.getExtras();
       
-      Log.e(TAG, e.keySet().toString());
+      Log.d(TAG, e.keySet().toString());
       
       mWidth = e.getInt(Parameters.WIDTH, mWidth);
       Log.e(TAG, String.format("mWidth is %d", mWidth));

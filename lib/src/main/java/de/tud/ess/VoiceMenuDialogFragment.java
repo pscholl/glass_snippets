@@ -70,8 +70,9 @@ public class VoiceMenuDialogFragment extends DialogFragment {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				Activity activity = getActivity();
 				if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER && activity != null && mScroll != null) {
+					int pos = mScroll.getSelectedItemPosition();
 					String str = ((String) mScroll.getSelectedItem());
-					((VoiceMenuListener)activity).onPhraseSelected(str);
+					((VoiceDetection.VoiceDetectionListener)activity).onPhraseDetected(pos, str);
 					if (mAudio != null)
 						mAudio.playSoundEffect(Sounds.TAP);
 					return true;
@@ -91,7 +92,7 @@ public class VoiceMenuDialogFragment extends DialogFragment {
 
 
 		mAudio = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
-		mScroll.setAdapter(new ArrayAdapter<String>(activity, R.layout.voice_menu_item, mItems));
+		mScroll.setAdapter(new ArrayAdapter<>(activity, R.layout.voice_menu_item, mItems));
 	}
 
 	@Override
@@ -123,9 +124,5 @@ public class VoiceMenuDialogFragment extends DialogFragment {
 
 		mScroll.setAdapter(null);
 		mAudio = null;
-	}
-
-    public interface VoiceMenuListener {
-		public void onPhraseSelected(String phrase);
 	}
 }
