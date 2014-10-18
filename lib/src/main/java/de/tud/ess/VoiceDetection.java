@@ -28,6 +28,7 @@ public class VoiceDetection extends StubVoiceListener {
 		mVoiceConfig = new VoiceConfig(mPhrases);
 		mVoiceConfig.setShouldSaveAudio(false);
 
+
 		mListener = listener;
 	}
 
