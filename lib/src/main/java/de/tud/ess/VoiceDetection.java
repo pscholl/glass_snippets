@@ -7,6 +7,9 @@ import com.google.glass.voice.VoiceCommand;
 import com.google.glass.voice.VoiceConfig;
 import com.google.glass.voice.VoiceInputHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Ramon on 22.04.2014.
  */
@@ -14,36 +17,55 @@ public class VoiceDetection extends StubVoiceListener {
 
 	private static final String THIS = VoiceDetection.class.getSimpleName();
 
-	private final VoiceConfig mVoiceConfig;
-	private String[] mPhrases;
+	private final String[] phrases;
+	private final String hotword;
+	private final boolean[] enabled;
+	private final VoiceConfig voiceConfig;
+	private final boolean hotwordOnlyMode;
+	private boolean hotwordOnly;
 	private VoiceInputHelper mVoiceInputHelper;
 	private VoiceDetectionListener mListener;
 	private boolean mRunning = true;
 
-	public VoiceDetection(Context context, String hotword, VoiceDetectionListener listener, String... phrases) {
+	public VoiceDetection(Context context, String hotword, VoiceDetectionListener listener, boolean alwaysListen, String... phrases) {
 		mVoiceInputHelper = new VoiceInputHelper(context, this);
 
-		mPhrases = assemblePhrases(hotword, phrases);
+		this.hotwordOnlyMode = !alwaysListen;
+		hotwordOnly = this.hotwordOnlyMode;
 
-		mVoiceConfig = new VoiceConfig(mPhrases);
-		mVoiceConfig.setShouldSaveAudio(false);
+		this.hotword = hotword;
+		this.phrases = phrases;
 
+		enabled = new boolean[phrases.length];
+
+		String[] allPhrases = new String[phrases.length + 1];
+		System.arraycopy(phrases, 0, allPhrases, 1, phrases.length);
+		allPhrases[0] = hotword;
+
+		voiceConfig = new VoiceConfig(allPhrases);
+		voiceConfig.setShouldSaveAudio(false);
 
 		mListener = listener;
 	}
 
-	private String[] assemblePhrases(String hotword, String[] phrases) {
-		String[] res = new String[phrases.length+1];
-		res[0] = hotword;
-		for (int i=0; i<phrases.length; ++i)
-			res[i+1] = phrases[i];
-		return res;
+	public boolean isEnabled(int phraseID) {
+		return enabled[phraseID];
 	}
 
-	public void changePhrases(String... phrases) {
-		mPhrases = assemblePhrases(mPhrases[0], phrases);
-		mVoiceConfig.setCustomPhrases(mPhrases);
-		mVoiceInputHelper.setVoiceConfig(mVoiceConfig);
+	public void setEnabled(int phraseID, boolean enabled) {
+		this.enabled[phraseID] = enabled;
+	}
+
+	/**
+	 * Commit changes to the enabled phrases
+	 *
+	 * Current implementation, always leaves all phrases active, only hides them, so update of VoiceConfig is never necessary
+	 * (This is included to be compatible to implementations that actually change VoiceConfig)
+	 *
+	 * @return false if no changes were made
+	 */
+	public boolean update() {
+		return false;
 	}
 
 	/**
@@ -64,18 +86,29 @@ public class VoiceDetection extends StubVoiceListener {
 //			return null;
 //		}
 
-		if (literal.equals(mPhrases[0])) { // Hotword
-
+		if (literal.equalsIgnoreCase(hotword)) { // Hotword
 			Log.i(THIS, "Hotword detected");
 			mListener.onHotwordDetected();
+
+			if (hotwordOnlyMode) {
+				hotwordOnly = false;
+			}
+
+			return null;
 		}
 
-		for (int i=1; i< mPhrases.length; ++i) {
-			String item = mPhrases[i];
-			if (item.equalsIgnoreCase(literal)) {// XE21 definitively converts the first letter to upper case!
-				Log.i(THIS, String.format("command %s", literal));
-				mListener.onPhraseDetected(i-1, literal);
-				return null;
+		if (!hotwordOnly) {
+			for (int i = 0; i < phrases.length; ++i) {
+				String item = phrases[i];
+				if (item.equalsIgnoreCase(literal) && enabled[i]) {// XE21 definitively converts the first letter to upper case!
+					Log.i(THIS, String.format("command %s", item));
+					mListener.onPhraseDetected(i, item);
+
+					if (hotwordOnlyMode)
+						hotwordOnly = true;
+
+					return null;
+				}
 			}
 		}
 
@@ -84,7 +117,7 @@ public class VoiceDetection extends StubVoiceListener {
 
 	public void start() {
 		mRunning = true;
-        mVoiceInputHelper.setVoiceConfig(mVoiceConfig);
+        mVoiceInputHelper.setVoiceConfig(voiceConfig);
 	}
 
 	public void stop() {
@@ -95,6 +128,36 @@ public class VoiceDetection extends StubVoiceListener {
 	@Override
 	public boolean isRunning() {
 		return mRunning;
+	}
+
+	public String[] getEnabledPhrases() {
+		List<String> phr = new ArrayList<>();
+		for (int i=0; i<phrases.length; ++i) {
+			if (enabled[i]) {
+				phr.add(phrases[i]);
+			}
+		}
+
+		return phr.toArray(new String[phr.size()]);
+	}
+
+	public String getHotword() {
+		return hotword;
+	}
+
+	public int[] getEnabledIds() {
+		List<Integer> ids = new ArrayList<>();
+		for (int i=0; i<enabled.length; ++i) {
+			if (enabled[i])
+				ids.add(i);
+		}
+		int[] idArr = new int[ids.size()];
+		int j = 0;
+		for (int i: ids) {
+			idArr[j++] = i;
+		}
+
+		return idArr;
 	}
 
 	public interface VoiceDetectionListener {

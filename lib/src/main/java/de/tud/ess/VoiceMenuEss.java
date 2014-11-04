@@ -6,29 +6,34 @@ import android.app.FragmentManager;
 /**
  * Created by phil on 09.05.14.
  */
+@Deprecated
 public class VoiceMenuEss extends VoiceMenuDialogFragment implements VoiceDetection.VoiceDetectionListener{
-    protected final VoiceDetection mVoiceDetection;
-    private final String[] mPhrases;
-    private final Activity mContext;
-    private final String mHotword;
-    private final VoiceDetection.VoiceDetectionListener mListener;
+    protected VoiceDetection mVoiceDetection;
+    private String[] mPhrases;
+    private Activity activity;
+    private String mHotword;
+    private VoiceDetection.VoiceDetectionListener mListener;
     private VoiceMenuDialogFragment mVoiceMenu;
 
-    public VoiceMenuEss(Activity context, VoiceDetection.VoiceDetectionListener listener, String hotword, String ...cmds) {
-        mContext = context;
-        mPhrases = cmds;
-        mHotword = hotword;
-        mListener = listener;
+	public static VoiceMenuEss getInstance(Activity activity, String hotword, VoiceDetection.VoiceDetectionListener listener, String... cmds) {
+		VoiceMenuEss fragment = new VoiceMenuEss();
 
-        mVoiceDetection = new VoiceDetection(context, hotword, this);
-    }
+		fragment.activity = activity;
+		fragment.mPhrases = cmds;
+		fragment.mHotword = hotword;
+		fragment.mListener = listener;
+
+		fragment.mVoiceDetection = new VoiceDetection(activity, hotword, fragment, false, cmds);
+
+		return fragment;
+	}
 
     @Override
     public void onHotwordDetected() {
-        FragmentManager fm = mContext.getFragmentManager();
-        mVoiceMenu = VoiceMenuDialogFragment.getInstance(fm,mHotword,mPhrases);
+        FragmentManager fm = activity.getFragmentManager();
+        mVoiceMenu = VoiceMenuDialogFragment.getInstance(fm,mHotword,null,mPhrases);
         mVoiceMenu.show(fm, VoiceMenuDialogFragment.FRAGMENT_TAG);
-        mVoiceDetection.changePhrases(mPhrases);
+//        mVoiceDetection.changePhrases(mPhrases);
 
         mListener.onHotwordDetected();
     }

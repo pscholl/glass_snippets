@@ -26,6 +26,7 @@ public class VoiceMenuDialogFragment extends DialogFragment {
 	public static final String HOTWORD = Constants.HOTWORD;
 	public static final String PHRASES = Constants.PHRASES;
 	public static final String FRAGMENT_TAG = VoiceMenuDialogFragment.class.getSimpleName();
+	public static final String PHRASE_IDS = Constants.PHRASES+Constants.ID;
 
 	private String mActivationWord;
 	private VoiceConfig mVoiceConfig;
@@ -33,18 +34,36 @@ public class VoiceMenuDialogFragment extends DialogFragment {
 	private HeadListView mScroll;
 	private AudioManager mAudio;
 	private String[] mItems;
+	private int[] mPhraseIds;
 
-	public static VoiceMenuDialogFragment getInstance(FragmentManager fm, String hotword, String... phrases) {
+	/**
+	 *
+	 * @param fm
+	 * @param hotword
+	 * @param phraseIDs
+	 * @param phrases
+	 * @return
+	 */
+	public static VoiceMenuDialogFragment getInstance(FragmentManager fm, String hotword, int[] phraseIDs, String... phrases) {
 		VoiceMenuDialogFragment f = (VoiceMenuDialogFragment) fm.findFragmentByTag(VoiceMenuDialogFragment.FRAGMENT_TAG);
 		if (f == null)
 			f = new VoiceMenuDialogFragment();
 		Bundle args = new Bundle();
 		args.putString(VoiceMenuDialogFragment.HOTWORD, hotword);
+		args.putIntArray(VoiceMenuDialogFragment.PHRASE_IDS, phraseIDs);
 		args.putStringArray(VoiceMenuDialogFragment.PHRASES, phrases);
 
 		f.setArguments(args);
 
 		return f;
+	}
+
+	public static VoiceMenuDialogFragment getInstance(FragmentManager fm, VoiceDetection recognition) {
+		String[] phrases = recognition.getEnabledPhrases();
+		String hotword = recognition.getHotword();
+		int[] phraseIDs = recognition.getEnabledIds();
+
+		return getInstance(fm, hotword, phraseIDs, phrases);
 	}
 
 	@Override
@@ -53,7 +72,7 @@ public class VoiceMenuDialogFragment extends DialogFragment {
 
 		Bundle args = getArguments();
 		mItems = args.getStringArray(PHRASES);
-
+		mPhraseIds = args.getIntArray(PHRASE_IDS);
 		mActivationWord = args.getString(HOTWORD);
 	}
 
@@ -71,8 +90,12 @@ public class VoiceMenuDialogFragment extends DialogFragment {
 				Activity activity = getActivity();
 				if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER && activity != null && mScroll != null) {
 					int pos = mScroll.getSelectedItemPosition();
+					int id = pos;
+					if (mPhraseIds != null) {
+						id = mPhraseIds[pos];
+					}
 					String str = ((String) mScroll.getSelectedItem());
-					((VoiceDetection.VoiceDetectionListener)activity).onPhraseDetected(pos, str);
+					((VoiceDetection.VoiceDetectionListener)activity).onPhraseDetected(id, str);
 					if (mAudio != null)
 						mAudio.playSoundEffect(Sounds.TAP);
 					return true;
