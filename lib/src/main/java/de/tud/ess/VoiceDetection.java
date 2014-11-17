@@ -37,6 +37,9 @@ public class VoiceDetection extends StubVoiceListener {
 		this.phrases = phrases;
 
 		enabled = new boolean[phrases.length];
+		for (int i = 0; i < phrases.length; i++) {
+			enabled[i] = true;
+		}
 
 		String[] allPhrases = new String[phrases.length + 1];
 		System.arraycopy(phrases, 0, allPhrases, 1, phrases.length);
