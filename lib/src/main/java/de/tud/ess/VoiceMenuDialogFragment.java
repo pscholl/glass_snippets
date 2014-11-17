@@ -88,7 +88,7 @@ public class VoiceMenuDialogFragment extends DialogFragment {
 			@Override // catch the TAP event
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				Activity activity = getActivity();
-				if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER && activity != null && mScroll != null) {
+				if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER  && event.getAction() == KeyEvent.ACTION_DOWN && activity != null && mScroll != null) {
 					int pos = mScroll.getSelectedItemPosition();
 					int id = pos;
 					if (mPhraseIds != null) {
