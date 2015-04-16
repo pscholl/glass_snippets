@@ -33,7 +33,7 @@ public class VoiceMenuActivity extends Activity implements VoiceDetection.VoiceD
     mTextView.setText("Try \"ok glass\"");
     mTextView.setGravity(Gravity.CENTER);
 
-    mVoiceMenu = new VoiceMenuEss(this, this, OKGLASS, mPhrases);
+    mVoiceMenu = VoiceMenuEss.getInstance(this, OKGLASS, this, mPhrases);
   }
 
     @Override

@@ -8,6 +8,7 @@ import com.google.glass.voice.VoiceConfig;
 import com.google.glass.voice.VoiceInputHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,6 +38,7 @@ public class VoiceDetection extends StubVoiceListener {
 		this.phrases = phrases;
 
 		enabled = new boolean[phrases.length];
+        Arrays.fill(enabled, Boolean.TRUE);
 
 		String[] allPhrases = new String[phrases.length + 1];
 		System.arraycopy(phrases, 0, allPhrases, 1, phrases.length);
@@ -104,8 +106,8 @@ public class VoiceDetection extends StubVoiceListener {
 					Log.i(THIS, String.format("command %s", item));
 					mListener.onPhraseDetected(i, item);
 
-					if (hotwordOnlyMode)
-						hotwordOnly = true;
+					//if (hotwordOnlyMode)
+					//	hotwordOnly = true;
 
 					return null;
 				}

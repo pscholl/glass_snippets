@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 /**
  * Created by phil on 09.05.14.
  */
-@Deprecated
 public class VoiceMenuEss extends VoiceMenuDialogFragment implements VoiceDetection.VoiceDetectionListener{
     protected VoiceDetection mVoiceDetection;
     private String[] mPhrases;
