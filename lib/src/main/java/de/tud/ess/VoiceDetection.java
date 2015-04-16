@@ -28,6 +28,8 @@ public class VoiceDetection extends StubVoiceListener {
 	private VoiceDetectionListener mListener;
 	private boolean mRunning = true;
 
+	private static VoiceConfig activeVoiceConfig;
+
 	public VoiceDetection(Context context, String hotword, VoiceDetectionListener listener, boolean alwaysListen, String... phrases) {
 		mVoiceInputHelper = new VoiceInputHelper(context, this);
 
@@ -38,7 +40,7 @@ public class VoiceDetection extends StubVoiceListener {
 		this.phrases = phrases;
 
 		enabled = new boolean[phrases.length];
-        Arrays.fill(enabled, Boolean.TRUE);
+    Arrays.fill(enabled, Boolean.TRUE);
 
 		String[] allPhrases = new String[phrases.length + 1];
 		System.arraycopy(phrases, 0, allPhrases, 1, phrases.length);
@@ -119,12 +121,18 @@ public class VoiceDetection extends StubVoiceListener {
 
 	public void start() {
 		mRunning = true;
+		Log.d(THIS, "Starting Voice Recognition for "+ this);
         mVoiceInputHelper.setVoiceConfig(voiceConfig);
+		activeVoiceConfig = voiceConfig;
 	}
 
 	public void stop() {
 		mRunning = false;
-        mVoiceInputHelper.setVoiceConfig(null);
+		if (activeVoiceConfig == voiceConfig) {
+			mVoiceInputHelper.setVoiceConfig(null);//This stops the service (which is a singleton), Android starts a new activity before it stops the old one
+			//-> we started the new recognition and then stopped it immediately
+			Log.d(THIS, "Stopping Voice Recognition for "+ this);
+		}
 	}
 
 	@Override
