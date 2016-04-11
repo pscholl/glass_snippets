@@ -1,5 +1,6 @@
 package de.tud.ess;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -86,60 +87,54 @@ public class CameraService extends Service implements SurfaceHolder.Callback {
 		return START_NOT_STICKY;
 	}
 
-	@Override
-	public void onCreate() {
-		// Start foreground service to avoid unexpected kill
-//      Notification notification = new Notification.Builder(this)
-//          .setContentTitle("Background Video Recorder")
-//          .setContentText("")
-//          .setSmallIcon(R.drawable.bio)
-//          .build();
-//      startForeground(1234, notification);
-	}
-
 	// Method called right after Surface created (initializing and starting MediaRecorder)
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
 		camera = Camera.open();
-		mediaRecorder = new MediaRecorder();
-
-		List<int[]> fps = camera.getParameters().getSupportedPreviewFpsRange();
-		int preview_fps[] = fps.get(0);
-
-		for (int i[] : camera.getParameters().getSupportedPreviewFpsRange())
-			preview_fps = (mCaptureRate <= i[1] && mCaptureRate > i[0]) ? i : preview_fps;
-
-		Camera.Parameters param = camera.getParameters();
-		param.setPreviewFpsRange(preview_fps[0], preview_fps[1]);
-		camera.setParameters(param);
-		camera.unlock();
-
-		mediaRecorder.setPreviewDisplay(surfaceHolder.getSurface());
-		mediaRecorder.setCamera(camera);
-
-		mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-		if (mCaptureRate > 25) {
-			mediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-			mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
-		} else {
-			mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_TIME_LAPSE_HIGH));
-			mediaRecorder.setCaptureRate(mCaptureRate);
-			//mediaRecorder.setVideoFrameRate((int) Math.ceil(mCaptureRate));
-		}
-		mediaRecorder.setOutputFile(mOutFile);
-
 		try {
+			mediaRecorder = new MediaRecorder();
+
+			List<int[]> fps = camera.getParameters().getSupportedPreviewFpsRange();
+			int preview_fps[] = fps.get(0);
+
+			for (int i[] : camera.getParameters().getSupportedPreviewFpsRange())
+				preview_fps = (mCaptureRate <= i[1] && mCaptureRate > i[0]) ? i : preview_fps;
+
+			Camera.Parameters param = camera.getParameters();
+			param.setVideoStabilization(true);
+			param.setPreviewFpsRange(preview_fps[0], preview_fps[1]);
+			camera.setParameters(param);
+			camera.unlock();
+
+			mediaRecorder.setPreviewDisplay(surfaceHolder.getSurface());
+			mediaRecorder.setCamera(camera);
+
+			mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+			CamcorderProfile profile;
+			if (mCaptureRate > 25) {
+				mediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+				profile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+			} else {
+				profile = CamcorderProfile.get(CamcorderProfile.QUALITY_TIME_LAPSE_HIGH);
+				mediaRecorder.setCaptureRate(mCaptureRate);
+				profile.videoFrameRate = ((int) Math.ceil(mCaptureRate));
+			}
+
+			mediaRecorder.setProfile(profile);
+			mediaRecorder.setOutputFile(mOutFile);
+
 			mediaRecorder.prepare();
-		} catch (Exception e) {
-			Log.e(TAG, e.toString());
+			mediaRecorder.start();
+
+			ScaleAnimation a = new ScaleAnimation(3, 2, 3, 2);
+			a.setDuration(2000);
+			surfaceView.startAnimation(a);
+
+			Log.i(TAG, String.format("recording %s with rate %.2f", mOutFile, mCaptureRate));
+		} catch(Exception e) {
+			onDestroy();
+			Log.d(TAG, e.toString());
 		}
-		mediaRecorder.start();
-
-		ScaleAnimation a = new ScaleAnimation(3, 2, 3, 2);
-		a.setDuration(2000);
-		surfaceView.startAnimation(a);
-
-		Log.i(TAG, String.format("recording %s with rate %.2f", mOutFile, mCaptureRate));
 	}
 
 	// Stop recording and remove SurfaceView
